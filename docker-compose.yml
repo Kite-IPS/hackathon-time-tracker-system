@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  flask-app:
+    build: .
+    container_name: flask-app
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app  # Mount current directory into the container
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+      - MYSQL_HOST=db  # Name of the MySQL container
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_DB=flaskdb
+    depends_on:
+      - db  # Ensure the MySQL service starts before the Flask app
+
+  db:
+    image: mysql:8.0
+    container_name: flask-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password  # Set the root password for MySQL
+      MYSQL_DATABASE: flaskdb  # Create a database named 'flaskdb'
+      MYSQL_USER: user  # Username for MySQL connection
+      MYSQL_PASSWORD: password  # Password for MySQL user
+    volumes:
+      - flask-db-data:/var/lib/mysql  # Persistent volume for database data
+    ports:
+      - "3306:3306"  # Expose MySQL on port 3306
+
+# Persistent data storage for the DB
+volumes:
+  flask-db-data:
