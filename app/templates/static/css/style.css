@@ -1,91 +1,302 @@
 body {
-    background-color: #f0f0f0;
-    font-family: Poppins, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color: #f0f0f0;
+  font-family: Poppins, sans-serif;
+  margin: 0;
+  padding: 0;
 }
-
-
 
 /* NavBar Style Start */
 .headerContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 9px;
-    margin: 1em;
-    position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
+  margin: 1em;
+  position: relative;
 }
 
 #appName {
-    font-size: 2em;
-    font-weight: bold;
-    color: #333;
-    margin: 0;
-    padding: 0;
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
 .navBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navMenu {
-    text-decoration: none;
-    color: #333;
-    margin: 0 1em;
-    font-size: 1.3em;
+  text-decoration: none;
+  color: #333;
+  margin: 0 1em;
+  font-size: 1.3em;
 }
 
 /* Burger icon styles */
 .burgerIcon {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
 }
 
 .burgerIcon div {
-    width: 25px;
-    height: 3px;
-    background-color: #333;
-    margin: 4px 0;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px 0;
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
-    .navBar {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background: white;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 9px;
-        padding: 1em;
-        width: 100%;
-        text-align: center;
-        font-size: 1em;
-        
-    }
-    #appName {
-        font-size: 1.3em;
-    }
-    .navBar.active {
-        margin: 2px;
-        display: flex;
-        flex-direction: column;
-        width: 50%;
-    }
+  .navBar {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 9px;
+    padding: 1em;
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
+  }
+  #appName {
+    font-size: 1.3em;
+  }
+  .navBar.active {
+    margin: 2px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
 
-    .burgerIcon {
-        display: flex;
-    }
+  .burgerIcon {
+    display: flex;
+  }
 }
 
 /* NavBar Style End */
 
+/* Main Container Start */
+
+.mainContainer {
+  padding: 2em;
+  background-color: #fff;
+  border-radius: 9px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 1em;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.mainContentHeaderTitle {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+.mainContentHeaderButton {
+  padding: 0.5em 1em;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.mainContentBody {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.mainContentBodyCard {
+  flex: 1 1 calc(25% - 1em);
+  background-color: #f9f9f9;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.mainContentBodyCardTitle {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5em;
+}
+
+.mainContentBodyCardValue {
+  font-size: 2em;
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Main Container End */
+
+/* Main Tabel Start */
+
+.mainTabel {
+  margin: 2em;
+  padding: 1em;
+  background-color: #fff;
+  border-radius: 9px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.mainTabel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.mainTabel th,
+.mainTabel td {
+  padding: 1em;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.mainTabel th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.mainTabel tr:hover {
+  background-color: #f5f5f5;
+}
+
+.mainTabel td {
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .mainTabel table {
+    width: 100%;
+  }
+  .mainTabel th,
+  .mainTabel td {
+    padding: 0.5em;
+  }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+.pagination button {
+  padding: 0.5em 1em;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#pageNumber {
+  padding: 0.5em 1em;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  outline: none;
+}
+
+.search-container {
+  display: flex;
+  gap: 10px;
+  justify-content: left;
+  margin-bottom: 15px;
+}
+
+#searchInput {
+  width: 250px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 9px;
+  outline: none;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+#searchInput:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#clearButton {
+  background-color: #dc3545;
+}
+
+#clearButton:hover {
+  background-color: #a71d2a;
+}
+
+@media (max-width: 480px) {
+  .search-container {
+    flex-direction: column;
+    align-items: left;
+  }
+
+  #searchInput {
+    max-width: 80%;
+  }
+
+  button {
+    width: 50%;
+  }
+}
+/* Main Tabel End */
+
+/* Footer Start */
+.footer {
+  color: #000000;
+  padding: 1em;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -2px 10px rgb(255, 255, 255);
+}
+
+.footerContentText {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+/* Footer End */
