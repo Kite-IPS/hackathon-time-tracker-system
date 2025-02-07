@@ -12,7 +12,7 @@ services:
       - FLASK_APP=run.py
       - FLASK_ENV=development
       - MYSQL_HOST=db  # Name of the MySQL container
-      - MYSQL_USER=root
+      - MYSQL_USER=user
       - MYSQL_PASSWORD=password
       - MYSQL_DB=flaskdb
     depends_on:
