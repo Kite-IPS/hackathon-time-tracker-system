@@ -1,4 +1,5 @@
 flask
-SQLAlchemy
+Flask-SQLAlchemy
 python-dotenv
 watchdog
+mysql-connector-python==8.0.27
