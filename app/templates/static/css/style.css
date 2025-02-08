@@ -6,7 +6,7 @@
   --background-color: #ffffff;
   --hover-color-light: #008cff;
   --hover-color-dark: #0056b3;
-  --alert-color-light: #ff4d4d;
+  --alert-color-light: #ff2f2f;
   --alert-color-dark: #e60000;
 }
 
@@ -236,11 +236,7 @@ body {
 .pagination button {
   padding: 0.5em 1em;
   border: none;
-  background: linear-gradient(
-    45deg,
-    var(--primary-color-dark),
-    var(--primary-color-light)
-  );
+  background: var(--primary-color-dark);
   color: white;
   border-radius: 9px;
   cursor: pointer;
@@ -248,11 +244,7 @@ body {
 }
 
 .pagination button:hover {
-  background: linear-gradient(
-    45deg,
-    var(--hover-color-dark),
-    var(--hover-color-light)
-  );
+  background: var(--hover-color-dark);
 }
 
 #pageNumber {
@@ -286,11 +278,7 @@ body {
 }
 
 button {
-  background: linear-gradient(
-    45deg,
-    var(--primary-color-dark),
-    var(--primary-color-light)
-  );
+  background: var(--primary-color-dark);
   color: white;
   border: none;
   padding: 10px 15px;
@@ -301,27 +289,15 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(
-    45deg,
-    var(--hover-color-dark),
-    var(--hover-color-light)
-  );
+  background: var(--hover-color-dark);
 }
 
 #clearButton {
-  background: linear-gradient(
-    45deg,
-    var(--alert-color-dark),
-    var(--alert-color-light)
-  );
+  background: var(--alert-color-light)
 }
 
 #clearButton:hover {
-  background: linear-gradient(
-    45deg,
-    var(--alert-color-dark),
-    var(--alert-color-light)
-  );
+  background: var(--alert-color-dark)
 }
 
 @media (max-width: 480px) {
@@ -342,9 +318,8 @@ button:hover {
 /* Footer */
 .footer {
   color: var(--text-color-primary);
-  padding: 1em;
+  padding: 2em;
   text-align: center;
-  width: 100%;
   background: var(--background-color);
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
