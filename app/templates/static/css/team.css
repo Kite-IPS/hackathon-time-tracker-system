@@ -233,9 +233,9 @@
   /* Footer */
   .footer {
     color: var(--text-color-primary);
-    padding: 2em;
+    padding: 1em;
     text-align: center;
-    max-height: fit-content;
+    height: 5px;
     background: var(--background-color);
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
   }
