@@ -1,9 +1,12 @@
+// JS for the app
+
+// Burger menu
 document.addEventListener("DOMContentLoaded", () => {
   const burgerIcon = document.querySelector(".burgerIcon");
   const navBar = document.querySelector(".navBar");
 
   burgerIcon.addEventListener("click", () => {
-      navBar.classList.toggle("active");
+    navBar.classList.toggle("active");
   });
 
   renderTable();
@@ -13,25 +16,25 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("tableBody").addEventListener("click", function (event) {
   let targetRow = event.target.closest("tr");
   if (!targetRow) return;
-  
-  let teamName = targetRow.cells[0].innerText; // Get the team name
-  let formattedTeamName = encodeURIComponent(teamName.trim()); // Encode for URL safety
 
-  window.location.href = `teamDetails.html?team=${formattedTeamName}`;
+  let teamId = targetRow.cells[0].innerText; // Get the team ID
+  let formattedTeamId = encodeURIComponent(teamId.trim()); // Encode for URL safety
+
+  window.location.href = `teamDetails.html?teamid=${formattedTeamId}`;
 });
 
 // Table pagination and rendering
 const data = [
-  { team: "Team 1", timeSpent: "15 hrs", totalTime: "130 hrs" },
-  { team: "Team 2", timeSpent: "12 hrs", totalTime: "130 hrs" },
-  { team: "Team 3", timeSpent: "20 hrs", totalTime: "130 hrs" },
-  { team: "Team 4", timeSpent: "10 hrs", totalTime: "130 hrs" },
-  { team: "Team 5", timeSpent: "8 hrs", totalTime: "130 hrs" },
-  { team: "Team 6", timeSpent: "18 hrs", totalTime: "130 hrs" },
-  { team: "Team 7", timeSpent: "14 hrs", totalTime: "130 hrs" },
-  { team: "Team 8", timeSpent: "11 hrs", totalTime: "130 hrs" },
-  { team: "Team 9", timeSpent: "16 hrs", totalTime: "130 hrs" },
-  { team: "Team 10", timeSpent: "9 hrs", totalTime: "130 hrs" },
+  { teamid: "T001", team: "Team 1", timeSpent: "15 hrs", totalTime: "130 hrs" },
+  { teamid: "T002", team: "Team 2", timeSpent: "12 hrs", totalTime: "130 hrs" },
+  { teamid: "T003", team: "Team 3", timeSpent: "20 hrs", totalTime: "130 hrs" },
+  { teamid: "T004", team: "Team 4", timeSpent: "10 hrs", totalTime: "130 hrs" },
+  { teamid: "T005", team: "Team 5", timeSpent: "8 hrs", totalTime: "130 hrs" },
+  { teamid: "T006", team: "Team 6", timeSpent: "18 hrs", totalTime: "130 hrs" },
+  { teamid: "T007", team: "Team 7", timeSpent: "14 hrs", totalTime: "130 hrs" },
+  { teamid: "T008", team: "Team 8", timeSpent: "11 hrs", totalTime: "130 hrs" },
+  { teamid: "T009", team: "Team 9", timeSpent: "16 hrs", totalTime: "130 hrs" },
+  { teamid: "T010", team: "Team 10", timeSpent: "9 hrs", totalTime: "130 hrs" },
 ];
 
 let currentPage = 1;
@@ -45,34 +48,44 @@ function renderTable() {
   const paginatedItems = filteredData.slice(start, end);
 
   tableBody.innerHTML = paginatedItems
-      .map(
-          (item) =>
-              `<tr class="clickable-row"><td>${item.team}</td><td>${item.timeSpent}</td><td>${item.totalTime}</td></tr>`
-      )
-      .join("");
+    .map(
+      (item) =>
+        `<tr class="clickable-row">
+          <td>${item.teamid}</td>
+          <td>${item.team}</td>
+          <td>${item.timeSpent}</td>
+          <td>${item.totalTime}</td>
+        </tr>`
+    )
+    .join("");
 
   document.getElementById("pageNumber").innerText = currentPage;
   document.getElementById("prevButton").disabled = currentPage === 1;
-  document.getElementById("nextButton").disabled = currentPage * rowsPerPage >= filteredData.length;
+  document.getElementById("nextButton").disabled =
+    currentPage * rowsPerPage >= filteredData.length;
 }
 
 function prevPage() {
   if (currentPage > 1) {
-      currentPage--;
-      renderTable();
+    currentPage--;
+    renderTable();
   }
 }
 
 function nextPage() {
   if (currentPage * rowsPerPage < filteredData.length) {
-      currentPage++;
-      renderTable();
+    currentPage++;
+    renderTable();
   }
 }
 
 function searchTable() {
   let input = document.getElementById("searchInput").value.toLowerCase();
-  filteredData = data.filter((item) => item.team.toLowerCase().includes(input));
+  filteredData = data.filter(
+    (item) =>
+      item.team.toLowerCase().includes(input) ||
+      item.teamid.toLowerCase().includes(input)
+  );
   currentPage = 1;
   renderTable();
 }
@@ -89,8 +102,6 @@ document.getElementById("clearButton").addEventListener("click", clearSearch);
 
 document.getElementById("searchInput").addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
-      searchTable();
+    searchTable();
   }
 });
-
-document.addEventListener("DOMContentLoaded", renderTable);

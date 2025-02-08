@@ -1,7 +1,6 @@
-// Js for the app
+// JS for the app
 
 // Burger menu
-
 document.addEventListener("DOMContentLoaded", () => {
   const burgerIcon = document.querySelector(".burgerIcon");
   const navBar = document.querySelector(".navBar");
@@ -9,21 +8,72 @@ document.addEventListener("DOMContentLoaded", () => {
   burgerIcon.addEventListener("click", () => {
     navBar.classList.toggle("active");
   });
+
+  renderTable();
 });
 
 // Table pagination
-
 const data = [
-  { team: "Team 1", timeSpent: "15 hrs", totalTime: "130 hrs" },
-  { team: "Team 2", timeSpent: "12 hrs", totalTime: "130 hrs" },
-  { team: "Team 3", timeSpent: "20 hrs", totalTime: "130 hrs" },
-  { team: "Team 4", timeSpent: "10 hrs", totalTime: "130 hrs" },
-  { team: "Team 5", timeSpent: "8 hrs", totalTime: "130 hrs" },
-  { team: "Team 6", timeSpent: "18 hrs", totalTime: "130 hrs" },
-  { team: "Team 7", timeSpent: "14 hrs", totalTime: "130 hrs" },
-  { team: "Team 8", timeSpent: "11 hrs", totalTime: "130 hrs" },
-  { team: "Team 9", timeSpent: "16 hrs", totalTime: "130 hrs" },
-  { team: "Team 10", timeSpent: "9 hrs", totalTime: "130 hrs" },
+  {
+    teamid: "T001",
+    team: "Team 1",
+    timeSpent: "15 hrs",
+    totalTime: "130 hrs",
+  },
+  {
+    teamid: "T002",
+    team: "Team 2",
+    timeSpent: "12 hrs",
+    totalTime: "130 hrs",
+  },
+  {
+    teamid: "T003",
+    team: "Team 3",
+    timeSpent: "20 hrs",
+    totalTime: "130 hrs",
+  },
+  {
+    teamid: "T004",
+    team: "Team 4",
+    timeSpent: "10 hrs",
+    totalTime: "130 hrs",
+  },
+  {
+    teamid: "T005",
+    team: "Team 5",
+    timeSpent: "8 hrs",
+    totalTime: "130 hrs",
+  },
+  {
+    teamid: "T006",
+    team: "Team 6",
+    timeSpent: "18 hrs",
+    totalTime: "130 hrs",
+  },
+  {
+    teamid: "T007",
+    team: "Team 7",
+    timeSpent: "14 hrs",
+    totalTime: "130 hrs",
+  },
+  {
+    teamid: "T008",
+    team: "Team 8",
+    timeSpent: "11 hrs",
+    totalTime: "130 hrs",
+  },
+  {
+    teamid: "T009",
+    team: "Team 9",
+    timeSpent: "16 hrs",
+    totalTime: "130 hrs",
+  },
+  {
+    teamid: "T010",
+    team: "Team 10",
+    timeSpent: "9 hrs",
+    totalTime: "130 hrs",
+  },
 ];
 
 let currentPage = 1;
@@ -39,7 +89,12 @@ function renderTable() {
   tableBody.innerHTML = paginatedItems
     .map(
       (item) =>
-        `<tr><td>${item.team}</td><td>${item.timeSpent}</td><td>${item.totalTime}</td></tr>`
+        `<tr>
+          <td>${item.teamid}</td>
+          <td>${item.team}</td>
+          <td>${item.timeSpent}</td>
+          <td>${item.totalTime}</td>
+        </tr>`
     )
     .join("");
 
@@ -65,7 +120,11 @@ function nextPage() {
 
 function searchTable() {
   let input = document.getElementById("searchInput").value.toLowerCase();
-  filteredData = data.filter((item) => item.team.toLowerCase().includes(input));
+  filteredData = data.filter(
+    (item) =>
+      item.team.toLowerCase().includes(input) ||
+      item.teamid.toLowerCase().includes(input)
+  );
   currentPage = 1;
   renderTable();
 }
@@ -88,5 +147,3 @@ document
       searchTable();
     }
   });
-
-document.addEventListener("DOMContentLoaded", renderTable);
