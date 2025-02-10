@@ -45,6 +45,14 @@
           </thead>
           <tbody id="tableBody">
             <!-- Table rows will be populated dynamically -->
+            {% for student in students %}
+              <tr>
+                <td> {{ team._id  }} </td>
+                <td> {{ student.name }} </td>
+                <td> {{ student.time_out }} min </td>
+                <td> {{ total_time }} min </td>
+              </tr>
+            {% endfor %}
           </tbody>
         </table>
         <div class="pagination">
