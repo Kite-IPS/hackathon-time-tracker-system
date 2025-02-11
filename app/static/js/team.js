@@ -20,7 +20,7 @@ document.getElementById("tableBody").addEventListener("click", function (event) 
   let teamId = targetRow.cells[0].innerText; // Get the team ID
   let formattedTeamId = encodeURIComponent(teamId.trim()); // Encode for URL safety
 
-  window.location.href = `teamDetails.html?teamid=${formattedTeamId}`;
+  window.location.href = `team-details?teamid=${formattedTeamId}`;
 });
 
 // Table pagination and rendering
