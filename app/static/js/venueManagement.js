@@ -1,3 +1,19 @@
+// Burger menu
+document.addEventListener("DOMContentLoaded", () => {
+  const burgerIcon = document.querySelector(".burgerIcon");
+  const navBar = document.querySelector(".navBar");
+
+  burgerIcon.addEventListener("click", () => {
+    navBar.classList.toggle("active");
+  });
+
+  async function initialize() {
+    await fetchTeam();
+  }
+  initialize();
+});
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const venueForm = document.getElementById('venueForm');
     const venueNameInput = document.getElementById('venueName');

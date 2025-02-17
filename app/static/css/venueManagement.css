@@ -35,11 +35,9 @@ body {
 #appName {
   font-size: 2em;
   font-weight: bold;
-  background: linear-gradient(
-    45deg,
-    var(--primary-color-dark),
-    var(--primary-color-light)
-  );
+  background: linear-gradient(45deg,
+      var(--primary-color-dark),
+      var(--primary-color-light));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -131,6 +129,7 @@ body {
 .table-style tbody tr:hover {
   background-color: #ddd;
 }
+
 .slar-table {
   width: 100%;
   border-collapse: collapse;
@@ -171,7 +170,6 @@ body {
 .venue-section,
 .slar-section {
   flex: 1;
-  min-width: 400px;
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -213,23 +211,23 @@ button:hover {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin: 1em 0;
 }
 
 th,
 td {
-  border: 1px solid var(--table-border);
-  padding: 10px;
-  text-align: left;
+  padding: 1em;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
 
 th {
-  background-color: var(--primary-color);
-  color: white;
+  background: #f9f9f9;
+  font-weight: bold;
 }
 
-td {
-  background-color: white;
+td:hover{
+  color: var(--text-color-primary);
 }
 
 @media (max-width: 768px) {
@@ -243,10 +241,13 @@ td {
     width: 100%;
   }
 }
+
 /* General Button Styles */
 button {
-  background-color: #4caf50; /* Green background */
-  color: white; /* White text */
+  background-color: #4caf50;
+  /* Green background */
+  color: white;
+  /* White text */
   border: none;
   padding: 10px 20px;
   text-align: center;
@@ -261,31 +262,38 @@ button {
 
 /* Hover Effect for Buttons */
 button:hover {
-  background-color: #45a049; /* Slightly darker green */
-  transform: scale(1.05); /* Slight grow effect */
+  background-color: #45a049;
+  /* Slightly darker green */
+  transform: scale(1.05);
+  /* Slight grow effect */
 }
 
 /* Focus Effect for Buttons */
 button:focus {
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue focus shadow */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  /* Blue focus shadow */
 }
 
 /* Disabled Button */
 button:disabled {
-  background-color: #cccccc; /* Gray background */
-  cursor: not-allowed; /* Show as disabled */
+  background-color: #cccccc;
+  /* Gray background */
+  cursor: not-allowed;
+  /* Show as disabled */
 }
 
 /* Specific Styling for Save Buttons */
 #saveVenueBtn,
 #saveSlarBtn {
-  background-color: #007bff; /* Blue background */
+  background-color: #007bff;
+  /* Blue background */
 }
 
 #saveVenueBtn:hover,
 #saveSlarBtn:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
+  /* Darker blue on hover */
 }
 
 /* Footer */

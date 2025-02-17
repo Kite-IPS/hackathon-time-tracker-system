@@ -145,6 +145,8 @@
     cursor: pointer;
     font-size: 1em;
     transition: 0.3s;
+    width: 75px;
+
   }
   
   .mainContentHeaderButton:hover {
@@ -241,6 +243,7 @@
     border-radius: 9px;
     cursor: pointer;
     transition: 0.3s;
+    width: 75px;
   }
   
   .pagination button:hover {

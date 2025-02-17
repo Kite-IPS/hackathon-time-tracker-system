@@ -126,7 +126,7 @@
     text-align: center;
     border-bottom: 1px solid #ddd;
   }
-  
+
   .mainTabel th {
     background: #f9f9f9;
     font-weight: bold;
@@ -139,6 +139,7 @@
   .mainTabel td {
     color: var(--text-color-primary);
   }
+  
   
   /* Pagination */
   .pagination {
@@ -226,7 +227,7 @@
     }
   
     button {
-      width: 100%;
+      width: 75px;
     }
   }
   
