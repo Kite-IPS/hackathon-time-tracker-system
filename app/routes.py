@@ -118,3 +118,8 @@ def teamDetails():
 @bp.route("/venue-management")
 def venue_management():
     return render_template("venueManagement.html")
+
+
+@bp.route("/venue")
+def venue():
+    return render_template("venue.html")

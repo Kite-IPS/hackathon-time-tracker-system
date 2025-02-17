@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/venue.css" />
+    <script src="/static/js/venueManagement.js" defer></script>
+    <title>Venue Overview</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="header">
+      <div class="headerContainer">
+        <div id="appName">Pyexpo'25</div>
+        <div class="burgerIcon" onclick="toggleMenu()">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="navBar">
+          <a class="navMenu" href="/">Dashboard</a>
+          <a class="navMenu" href="team">Team</a>
+          <a class="navMenu" href="students">Students</a>
+          <a class="navMenu" href="venue">Venue</a>
+          <a class="navMenu" href="venue-management">Venue Management</a>
+        </div>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <div class="container">
+      <h2>Venue List</h2>
+      <table class="venue-table">
+        <thead>
+          <tr>
+            <th>Venue Name</th>
+            <th>Current Occupancy</th>
+            <th>Capacity</th>
+          </tr>
+        </thead>
+        <tbody id="venueList"></tbody>
+      </table>
+
+      <h2>Students</h2>
+      <table class="student-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Team</th>
+            <th>Current Venue</th>
+          </tr>
+        </thead>
+        <tbody id="studentList"></tbody>
+      </table>
+
+      <h2>Teams & Student Locations</h2>
+      <table class="team-table">
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Students</th>
+            <th>Venue</th>
+          </tr>
+        </thead>
+        <tbody id="teamList"></tbody>
+      </table>
+    </div>
+
+    <footer>
+      <div class="footer">
+        <div class="footerContentText">Designed by IPS Tech Community</div>
+      </div>
+    </footer>
+  </body>
+</html>
