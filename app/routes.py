@@ -11,9 +11,9 @@ def dashboard():
     
     total_students = len(students)
     total_teams = len(teams)
-    # Check if the request is for HTML or JSON
+
     if request.accept_mimetypes.best == 'application/json':
-        # Return the teams data as JSON for API requests
+        
         teams_data = [
             {
                 "teamid": team._id,
@@ -25,16 +25,16 @@ def dashboard():
         ]
         return jsonify(teams_data)
     else:
-        # Otherwise, return the team page in HTML
+        
         return render_template("index.html", teams=teams, total_time=total_time, total_students=total_students, total_teams=total_teams)
 
 @bp.route("/team")
 def team():
     page = request.args.get('page', 1, type = int)
     teams = Team.query.all()
-    # Check if the request is for HTML or JSON
+    
     if request.accept_mimetypes.best == 'application/json':
-        # Return the teams data as JSON for API requests
+        
         teams_data = [
             {
                 "teamid": team._id,
@@ -46,7 +46,6 @@ def team():
         ]
         return jsonify(teams_data)
     else:
-        # Otherwise, return the team page in HTML
         return render_template("team.html", teams=teams, total_time=total_time)
 
 
@@ -54,13 +53,14 @@ def team():
 def student():
     page = request.args.get('page', 1, type = int)
     students = Student.query.all() 
-    #Check if the request is for HTML or JSON
+    
     if request.accept_mimetypes.best == 'application/json':
-        # Return the teams data as JSON for API requests
+        
         students_data = [
             {
                 "teamid": student.team_id,
-                "team": student.name,
+                "rollNum" : student.roll_num,
+                "name": student.name,
                 "timeSpent": student.time_out(),
                 "totalTime": total_time,
             }
@@ -68,7 +68,6 @@ def student():
         ]
         return jsonify(students_data)
     else:
-        # Otherwise, return the team page in HTML
         return render_template("students.html", students=students, total_time=total_time)
 
 @bp.route("/team-details", methods=["GET"])
@@ -113,3 +112,7 @@ def teamDetails():
         students_in_team=students_in_team,
         total_time=total_time
     )
+
+@bp.route('/favicon.ico')
+def favicon():
+    return
