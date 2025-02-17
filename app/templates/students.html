@@ -30,10 +30,46 @@
 
     <!-- Team Table Start -->
     <div class="mainTabel">
+<<<<<<< HEAD
       <div class="search-container">
         <input type="text" id="searchInput" placeholder="Search student..." />
         <button id="searchButton">Search</button>
         <button id="clearButton">Clear</button>
+=======
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Search student..." />
+          <button id="searchButton">Search</button>
+          <button id="clearButton">Clear</button>
+        </div>
+        <table id="teamTable">
+          <thead>
+            <tr>
+              <th>Team Id</th>
+              <th>Roll Number</th>
+              <th>Student Name</th>
+              <th>Time Spent</th>
+              <th>Total Time</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Table rows will be populated dynamically -->
+            {% for student in students %}
+              <tr>
+                <td> {{ student.team_id  }} </td>
+                <td> {{ student.roll_num }} </td>
+                <td> {{ student.name }} </td>
+                <td> {{ student.time_out() }} hours </td>
+                <td> {{ total_time }} hours </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="pagination">
+          <button id="prevButton" onclick="prevPage()">Prev</button>
+          <span id="pageNumber">1</span>
+          <button id="nextButton" onclick="nextPage()">Next</button>
+        </div>
+>>>>>>> bb6902c3ebf459ae0e9a80238be5e5dec0f20d69
       </div>
       <table id="teamTable">
         <thead>

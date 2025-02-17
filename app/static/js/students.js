@@ -27,7 +27,7 @@ async function fetchStudents() {
 }
 
 // Table pagination
-
+let data = [];
 let currentPage = 1;
 const rowsPerPage = 10;
 let filteredData = [...data];
@@ -43,7 +43,8 @@ function renderTable() {
       (item) =>
         `<tr>
           <td>${item.teamid}</td>
-          <td>${item.team}</td>
+          <td>${item.rollNum}</td>
+          <td>${item.name}</td>
           <td>${item.timeSpent}</td>
           <td>${item.totalTime}</td>
         </tr>`
@@ -71,12 +72,13 @@ function nextPage() {
 }
 
 function searchTable() {
-  let input = document.getElementById("searchInput").value.toLowerCase();
   filteredData = data.filter(
     (item) =>
-      item.team.toLowerCase().includes(input) ||
-      item.teamid.toLowerCase().includes(input)
+      item.name.toLowerCase().includes(input) ||
+      item.teamid.includes(input) ||
+      item.rollNum.toLowerCase().includes(input)
   );
+  console.log(filteredData)
   currentPage = 1;
   renderTable();
 }
@@ -88,14 +90,20 @@ function clearSearch() {
   renderTable();
 }
 
-document.getElementById("searchButton").addEventListener("click", searchTable);
-document.getElementById("clearButton").addEventListener("click", clearSearch);
+document.addEventListener("DOMContentLoaded", () => {
+  const searchButton = document.getElementById("searchButton");
+  const clearButton = document.getElementById("clearButton");
+  const searchInput = document.getElementById("searchInput");
 
-// Allow pressing Enter to search
-document
-  .getElementById("searchInput")
-  .addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      searchTable();
-    }
-  });
+  if (searchButton) searchButton.addEventListener("click", searchTable);
+  if (clearButton) clearButton.addEventListener("click", clearSearch);
+
+  if (searchInput) {
+    searchInput.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        searchTable();
+      }
+    });
+  }
+});
+

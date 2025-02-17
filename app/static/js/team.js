@@ -101,11 +101,19 @@ function clearSearch() {
   renderTable();
 }
 
-document.getElementById("searchButton").addEventListener("click", searchTable);
-document.getElementById("clearButton").addEventListener("click", clearSearch);
+document.addEventListener("DOMContentLoaded", () => {
+  const searchButton = document.getElementById("searchButton");
+  const clearButton = document.getElementById("clearButton");
+  const searchInput = document.getElementById("searchInput");
 
-document.getElementById("searchInput").addEventListener("keypress", function (event) {
-  if (event.key === "Enter") {
-    searchTable();
+  if (searchButton) searchButton.addEventListener("click", searchTable);
+  if (clearButton) clearButton.addEventListener("click", clearSearch);
+
+  if (searchInput) {
+    searchInput.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        searchTable();
+      }
+    });
   }
 });

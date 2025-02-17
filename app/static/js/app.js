@@ -12,35 +12,37 @@ document.addEventListener("DOMContentLoaded", () => {
   async function initialize() {
     await fetchTeam();
   }
+  initialize();
 });
 
 async function fetchTeam() {
+  console.log("Fetching");
   try{
-    const response = await fetch("/teams"); // Fetch from Flask API
-    data = await response.json();
-    filteredData = [...data]; // Copy data for filtering
+    const response = await fetch("/"); // Fetch from Flask API
+    console.log("Response recieved");
+    const fetchedData = await response.json();
+    
+    console.log("Fetched Data:", fetchedData)
+
+    data = [...fetchedData];
+    filteredData = [...fetchedData];
     renderTable();
+    console.error("Data is not an array!");
+
   }
-  catch (error) {
-    console.error("Error fetching team data:", error);
+  catch (error){
+    return;
   }
-}
+} 
 
 let data = []
 let currentPage = 1;
 const rowsPerPage = 5;
-let filteredData = [];
+filteredData = [];
 
 function renderTable() {
-  const TeamDashboard = document.getElementById("TeamDashboard");
-  TeamDashboard.innerHTML = teamData
-  .map(
-    (item) => 
-      `<tr><td>${item.total_students}</td>${item.total_teams}<td></td><td>${item.totalTime}</td></tr>`
-  )
-
-
   const tableBody = document.getElementById("tableBody");
+  if (!tableBody) return;
   const start = (currentPage - 1) * rowsPerPage;
   const end = start + rowsPerPage;
   const paginatedItems = filteredData.slice(start, end);
@@ -78,12 +80,14 @@ function nextPage() {
 }
 
 function searchTable() {
-  let input = document.getElementById("searchInput").value.toLowerCase();
+  const input = document.getElementById("searchInput").value.trim().toLowerCase();
+  if (!input) return;
   filteredData = data.filter(
     (item) =>
-      item.team.toLowerCase().includes(input) ||
-      item.teamid.toLowerCase().includes(input)
+      item.teamid.trim().toLowerCase().includes(input) ||
+      item.team.trim().toLowerCase().includes(input)
   );
+  console.log(filteredData)
   currentPage = 1;
   renderTable();
 }
@@ -95,14 +99,21 @@ function clearSearch() {
   renderTable();
 }
 
-document.getElementById("searchButton").addEventListener("click", searchTable);
-document.getElementById("clearButton").addEventListener("click", clearSearch);
+document.addEventListener("DOMContentLoaded", () => {
+  const searchButton = document.getElementById("searchButton");
+  const clearButton = document.getElementById("clearButton");
+  const searchInput = document.getElementById("searchInput");
 
-// Allow pressing Enter to search
-document
-  .getElementById("searchInput")
-  .addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      searchTable();
-    }
-  });
+  if (searchButton) searchButton.addEventListener("click", searchTable);
+  if (clearButton) clearButton.addEventListener("click", clearSearch);
+
+  if (searchInput) {
+    searchInput.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        searchTable();
+      }
+    });
+  }
+});
+
+
