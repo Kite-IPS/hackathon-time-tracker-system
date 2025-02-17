@@ -1,4 +1,4 @@
-// JS for the app
+// JS for the team
 
 // Burger menu
 document.addEventListener("DOMContentLoaded", () => {
@@ -8,38 +8,42 @@ document.addEventListener("DOMContentLoaded", () => {
   burgerIcon.addEventListener("click", () => {
     navBar.classList.toggle("active");
   });
-
-  renderTable();
+  async function initialize() {
+    await fetchTeam();
+  }
 });
+
+//Fetch Team 
+async function fetchTeam() {
+  try{
+    const response = await fetch("/teams"); // Fetch from Flask API
+    data = await response.json();
+    filteredData = [...data]; // Copy data for filtering
+    renderTable();
+  }
+  catch (error) {
+    console.error("Error fetching team data:", error);
+  }
+}
+  
 
 // Handle table row click navigation
 document.getElementById("tableBody").addEventListener("click", function (event) {
   let targetRow = event.target.closest("tr");
   if (!targetRow) return;
 
-  let teamId = targetRow.cells[0].innerText; // Get the team ID
-  let formattedTeamId = encodeURIComponent(teamId.trim()); // Encode for URL safety
+  let teamId = targetRow.cells[0].innerText.trim(); // Get the team ID
+  let formattedTeamId = encodeURIComponent(teamId); // Encode for URL safety
 
   window.location.href = `team-details?teamid=${formattedTeamId}`;
 });
 
 // Table pagination and rendering
-const data = [
-  { teamid: "T001", team: "Team 1", timeSpent: "15 hrs", totalTime: "130 hrs" },
-  { teamid: "T002", team: "Team 2", timeSpent: "12 hrs", totalTime: "130 hrs" },
-  { teamid: "T003", team: "Team 3", timeSpent: "20 hrs", totalTime: "130 hrs" },
-  { teamid: "T004", team: "Team 4", timeSpent: "10 hrs", totalTime: "130 hrs" },
-  { teamid: "T005", team: "Team 5", timeSpent: "8 hrs", totalTime: "130 hrs" },
-  { teamid: "T006", team: "Team 6", timeSpent: "18 hrs", totalTime: "130 hrs" },
-  { teamid: "T007", team: "Team 7", timeSpent: "14 hrs", totalTime: "130 hrs" },
-  { teamid: "T008", team: "Team 8", timeSpent: "11 hrs", totalTime: "130 hrs" },
-  { teamid: "T009", team: "Team 9", timeSpent: "16 hrs", totalTime: "130 hrs" },
-  { teamid: "T010", team: "Team 10", timeSpent: "9 hrs", totalTime: "130 hrs" },
-];
 
+let data=[];
 let currentPage = 1;
 const rowsPerPage = 10;
-let filteredData = [...data];
+let filteredData = [];
 
 function renderTable() {
   const tableBody = document.getElementById("tableBody");
@@ -51,7 +55,7 @@ function renderTable() {
     .map(
       (item) =>
         `<tr class="clickable-row">
-          <td>${item.teamid}</td>
+          <td>${item.team_id}</td>
           <td>${item.team}</td>
           <td>${item.timeSpent}</td>
           <td>${item.totalTime}</td>

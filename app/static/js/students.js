@@ -1,4 +1,4 @@
-// JS for the app
+// JS for the students
 
 // Burger menu
 document.addEventListener("DOMContentLoaded", () => {
@@ -8,23 +8,25 @@ document.addEventListener("DOMContentLoaded", () => {
   burgerIcon.addEventListener("click", () => {
     navBar.classList.toggle("active");
   });
-
-  renderTable();
+  async function initialize() {
+    await fetchStudents();
+  }
 });
 
+//Fetch Students
+async function fetchStudents() {
+  try{
+    const response = await fetch("/students"); //Fetch from Flask API
+    data = await response.json();
+    filteredData = [...data]; //Copy data for filtering
+    renderTable();
+  }
+  catch(error){
+    console.error("Error fetching Student Details", error)
+  }
+}
+
 // Table pagination
-const data = [
-  { teamid: "T001", team: "Team 1", timeSpent: "15 hrs", totalTime: "130 hrs" },
-  { teamid: "T002", team: "Team 2", timeSpent: "12 hrs", totalTime: "130 hrs" },
-  { teamid: "T003", team: "Team 3", timeSpent: "20 hrs", totalTime: "130 hrs" },
-  { teamid: "T004", team: "Team 4", timeSpent: "10 hrs", totalTime: "130 hrs" },
-  { teamid: "T005", team: "Team 5", timeSpent: "8 hrs", totalTime: "130 hrs" },
-  { teamid: "T006", team: "Team 6", timeSpent: "18 hrs", totalTime: "130 hrs" },
-  { teamid: "T007", team: "Team 7", timeSpent: "14 hrs", totalTime: "130 hrs" },
-  { teamid: "T008", team: "Team 8", timeSpent: "11 hrs", totalTime: "130 hrs" },
-  { teamid: "T009", team: "Team 9", timeSpent: "16 hrs", totalTime: "130 hrs" },
-  { teamid: "T010", team: "Team 10", timeSpent: "9 hrs", totalTime: "130 hrs" },
-];
 
 let currentPage = 1;
 const rowsPerPage = 10;

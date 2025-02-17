@@ -46,12 +46,12 @@
           <tbody id="tableBody">
             <!-- Table rows will be populated dynamically -->
             {% for team in teams %}
-              <tr>
-                <td> {{ team._id }} </td>
-                <td> {{ team.name }} </td>
-                <td> {{ team.team_time_out() }} min </td>
-                <td> {{ total_time }} min </td>
-              </tr>
+            <tr class="clickable-row">
+              <td>{{ team._id }}</td>
+              <td>{{ team.name }}</td>
+              <td>{{ team.team_time_out() }}</td>
+              <td>{{ total_time }} hours </td>
+            </tr>
             {% endfor %}
           </tbody>
         </table>

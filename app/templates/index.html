@@ -35,15 +35,15 @@
         <div class="mainContentBody">
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Total Students</div>
-            <div class="mainContentBodyCardValue">100</div>
+            <div class="mainContentBodyCardValue" id="TotalStudents">{{ total_students }}</div>
           </div>
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Total Teams</div>
-            <div class="mainContentBodyCardValue">10</div>
+            <div class="mainContentBodyCardValue" id="TotalTeams">{{ total_teams }}</div>
           </div>
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Total Time</div>
-            <div class="mainContentBodyCardValue">180 hrs</div>
+            <div class="mainContentBodyCardValue">30 hours</div>
           </div>
         </div>
       </div>
@@ -72,8 +72,8 @@
            <tr>
             <td> {{team._id}} </td>
             <td> {{team.name}} </td>
-            <td> {{team.team_time_out}} </td>
-            <td> {{total_time}} </td>
+            <td> {{team.team_time_out()}} </td>
+            <td> {{total_time}} hours </td>
            </tr>
           {% endfor %}
         </tbody>

@@ -1,3 +1,4 @@
+// JS for team details
 // Burger menu
 document.addEventListener("DOMContentLoaded", () => {
     const burgerIcon = document.querySelector(".burgerIcon");
@@ -6,31 +7,53 @@ document.addEventListener("DOMContentLoaded", () => {
     burgerIcon.addEventListener("click", () => {
         navBar.classList.toggle("active");
     });
-
-    renderTable(); // Ensure the table renders on page load
+    async function initialize() {
+        await fetch_teamDetails();
+    }
 });
 
-// Mock data for team details table
-const studentData = [
-    { studentName: "John Doe", timeSpent: "15 hrs", totalTime: "130 hrs" },
-    { studentName: "Jane Smith", timeSpent: "12 hrs", totalTime: "130 hrs" },
-    { studentName: "Alice Johnson", timeSpent: "20 hrs", totalTime: "130 hrs" },
-    { studentName: "Bob Brown", timeSpent: "10 hrs", totalTime: "130 hrs" },
-    { studentName: "Charlie White", timeSpent: "8 hrs", totalTime: "130 hrs" },
-    { studentName: "David Black", timeSpent: "18 hrs", totalTime: "130 hrs" },
-];
+document.addEventListener("DOMContentLoaded", async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const teamId = urlParams.get("teamId"); // Get teamId from URL
+
+    if (teamId) {
+        await fetch_teamDetails(teamId); // Pass teamId to the function
+    }
+});
+
+// Fetch Team Details
+async function fetch_teamDetails() {
+    try{
+        const response = await fetch(`/team-details?teamId=${teamId}`) // Fetch from flask API
+        const data = await response.json();
+        filteredData = [...data]; // Copy data for filtering
+
+        if (data.error){
+            console.error("Error:", data.error);
+            return;
+        }
+        renderTable(data.students);
+    }
+    catch(error){
+        console.error("Error fetching team details", error);
+    }
+
+}
+
 
 
 // Table rendering function
 function renderTable() {
     const tableBody = document.getElementById("tableBody");
 
+    if (!teamData) return;
+
     if (!tableBody) return;
 
     tableBody.innerHTML = studentData
         .map(
             (item) =>
-                `<tr><td>${item.studentName}</td><td>${item.timeSpent}</td><td>${item.totalTime}</td></tr>`
+                `<tr><td>${item.studentName}</td><td>${item.rollNum}</td><td>${item.timeSpent}</td><td>${item.totalTime}</td><td>${item.status}</td></tr>`
         )
         .join("");
 }

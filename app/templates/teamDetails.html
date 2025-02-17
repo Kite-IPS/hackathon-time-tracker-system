@@ -32,18 +32,18 @@
         <div class="mainContentHeader">
           <div class="mainContentHeaderTitle">Team Details</div>
         </div>
-        <div class="mainContentBody">
+        <div class="mainContentBody" id="teamData">
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Team Name</div>
-            <div class="mainContentBodyCardValue">Team 1</div>
+            <div class="mainContentBodyCardValue">{{team_data.name if team_data else 'N/A'}}</div>
           </div>
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Time Spent</div>
-            <div class="mainContentBodyCardValue">10</div>
+            <div class="mainContentBodyCardValue">{{team_data.team_time_out() if team_data else 'N/A'}} hours</div>
           </div>
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Total Time</div>
-            <div class="mainContentBodyCardValue">180 hrs</div>
+            <div class="mainContentBodyCardValue">{{total_time if total_time else 'N/A'}} hours</div>
           </div>
         </div>
       </div>
@@ -55,18 +55,22 @@
       <table id="teamTable">
         <thead>
           <tr>
-            <th>Students Name</th>
-            <th>Time Spent</th>
-            <th>Total Time</th>
+            <th> Students Name </th>
+            <th> Roll Number </th>
+            <th> Time Spent </th>
+            <th> Total Time </th>
+            <th> Status </th>
           </tr>
         </thead>
         <tbody id="tableBody">
           <!-- Table rows will be populated dynamically -->
-           {% for team in teams %}
+           {% for student in students_in_team %}
             <tr>
                 <td> {{ student.name }} </td>
-                <td> {{ student.time_out() }} min </td>
-                <td> {{ total_time }} min </td>
+                <td> {{ student.roll_num }} </td>
+                <td> {{ student.time_out() }} hours </td>
+                <td> {{ total_time }} hours </td>
+                <td> {{ student.status() }} </td>
             </tr>
            {% endfor %}
         </tbody>

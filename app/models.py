@@ -1,7 +1,8 @@
 from . import db
 from datetime import datetime, timezone
+import sqlite3
 
-total_time = 10800 # Per person 30 hrs
+total_time = 30 # Per person 30 hrs
 
 class Team(db.Model):
 
@@ -10,9 +11,9 @@ class Team(db.Model):
 
     members = db.relationship("Student", backref="Team")
     
-    @classmethod
     def team_time_out(self):
-        return sum(member.time_spent_out() for member in self.members if member.time_spent_out is not None)
+        return sum(member.time_out() for member in self.members if member.time_out() is not None)
+    
 
 class Student(db.Model):
     rfid_num = db.Column(db.String(10), primary_key=True)
@@ -20,9 +21,8 @@ class Student(db.Model):
     roll_num = db.Column(db.String(10), unique=True, nullable=False)
     team_id = db.Column(db.Integer, db.ForeignKey("team._id"))
     
-    @classmethod
-    def time_out(cls, rfid_num):
-        entries = Entry.query.filter_by(student=cls.rfid_num).order_by(Entry.timestamp).all()
+    def time_out(self):
+        entries = Entry.query.filter_by(student=self.rfid_num).order_by(Entry.timestamp).all()
         total_time_out = 0
         last_in_time = None
         
@@ -30,18 +30,23 @@ class Student(db.Model):
             if entry._id % 2 != 0: # Check In
                 last_in_time = entry.timestamp
             elif entry._id % 2 == 0 and last_in_time: # Check Out
-                total_time_out += (entry.timestamp - last_in_time).total_seconds() // 60
+                total_time_out += (entry.timestamp - last_in_time).total_seconds() /3600 # In hours
                 last_in_time = None
         
         return total_time_out
+
+    @classmethod
+    def status(self):
+        return Entry.in_out(self.rfid_num)
         
 class Entry(db.Model):
     _id = db.Column(db.Integer, primary_key=True)
     student = db.Column(db.String(10), db.ForeignKey("student.rfid_num"))
-    timestamp = db.Column(db.DateTime, nullable=False, default= lambda: datetime.now(timezone.tzname("Asia/Kolkata")))
+    timestamp = db.Column(db.DateTime, nullable=False, default= lambda: datetime.now(timezone.utc))
     
-    @classmethod # Do we need this?
-    def in_out(cls, _id, student):
-        return "in" if _id % 2 != 0 else "out"
-    
-    
+    @classmethod
+    def in_out(cls, student):
+        db.session.expire_all()
+        total_entries = Entry.query.filter_by(student=student).count()
+        return "IN" if total_entries % 2 != 0 else "OUT"
+        
