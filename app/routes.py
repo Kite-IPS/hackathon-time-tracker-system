@@ -113,6 +113,6 @@ def teamDetails():
         total_time=total_time
     )
 
-@bp.route('/favicon.ico')
-def favicon():
-    return
+@bp.route("/venue", methods=["GET"])
+def VM():
+    return render_template("venueManagement.html")

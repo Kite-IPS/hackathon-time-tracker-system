@@ -50,3 +50,15 @@ class Entry(db.Model):
         total_entries = Entry.query.filter_by(student=student).count()
         return "IN" if total_entries % 2 != 0 else "OUT"
         
+
+class Venue(db.Model):
+
+    name = db.Column(db.String(100), primary_key=True)
+    total_capacity = db.Column(db.Integer)
+
+
+class HardwareUnit(db.Model):
+
+    _id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(10))
+    venue = db.Column(db.String(100), db.ForeignKey("venue.name"))

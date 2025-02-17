@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/venueManagement.css" />
+    <script src="static/js/venueManagement.js" defer></script>
+    <title>The Time Tracker</title>
+  </head>
+  <body>
+    <!-- NavBar Start -->
+    <div class="header">
+      <div class="headerContainer">
+        <div id="appName">Pyexpo'25</div>
+        <div class="burgerIcon" onclick="toggleMenu()">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="navBar">
+          <a class="navMenu" href="/">Dashboard</a>
+          <a class="navMenu" href="team">Team</a>
+          <a class="navMenu" href="students">Students</a>
+          <a class="navMenu" href="venue-management">Venue</a>
+        </div>
+      </div>
+    </div>
+    <!-- NavBar End -->
+
+    <!-- Main Content Start -->
+    <div class="container">
+      <div class="venue-section">
+        <h2>Venues</h2>
+        <form id="venueForm">
+          <input type="text" id="venueName" placeholder="Venue Name" required />
+          <input
+            type="number"
+            id="venueCapacity"
+            placeholder="Capacity"
+            required
+          />
+          <button type="submit" id="saveVenueBtn">Save Venue</button>
+        </form>
+        <table class="table-style">
+          <thead>
+            <tr>
+              <th>Venue Name</th>
+              <th>Capacity</th>
+            </tr>
+          </thead>
+          <tbody id="venueList"></tbody>
+        </table>
+      </div>
+
+      <div class="slar-section">
+        <h2>SLAR Units</h2>
+        <form id="slarForm">
+          <input
+            type="text"
+            id="slarName"
+            placeholder="SLAR Unit Name"
+            required
+          />
+          <select id="slarVenue">
+            <option value="" disabled selected>Select Venue</option>
+          </select>
+          <input
+            type="text"
+            id="expectedKey"
+            placeholder="Expected Key"
+            required
+          />
+          <button type="submit" id="saveSlarBtn">Save SLAR Unit</button>
+        </form>
+        <table class="slar-table">
+          <thead>
+            <tr>
+              <th>SLAR Unit Name</th>
+              <th>Mapped Venue</th>
+              <th>Expected Key</th>
+            </tr>
+          </thead>
+          <tbody id="slarList"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Main Content End -->
+
+    <!-- Footer Start -->
+    <footer>
+      <div class="footer">
+        <div class="footerContentText">
+          Designed and Developed by Ips Tech Community
+        </div>
+      </div>
+    </footer>
+    <!-- Footer End -->
+  </body>
+</html>
