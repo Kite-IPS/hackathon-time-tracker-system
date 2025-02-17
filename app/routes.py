@@ -115,6 +115,6 @@ def teamDetails():
     )
 
 
-@bp.route("/template_route")
-def template():
-    render_template("hello.html")
+@bp.route("/venue-management")
+def venue_management():
+    return render_template("venueManagement.html")
