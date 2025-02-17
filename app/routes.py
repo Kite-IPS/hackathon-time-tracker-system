@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, logging, jsonify
+from flask import Blueprint, render_template, request, logging, jsonify, flash, redirect, url_for
 from .models import *
 
 bp = Blueprint("main", __name__)
@@ -85,8 +85,6 @@ def teamDetails():
     
     students_data = []
     for student in students_in_team:
-        
-            
         students_data.append({
                 "name": student.name,                    
                 "rollNum" : student.roll_num,
@@ -113,6 +111,28 @@ def teamDetails():
         total_time=total_time
     )
 
-@bp.route("/venue", methods=["GET"])
+@bp.route("/venue", methods=["GET", "POST"])
 def VM():
+    if request.method == "POST":
+        name = request.form.get("name")
+        total_capacity = request.form.get("total_capacity")
+        
+        if not name or not total_capacity:
+            flash("Enter all the required fields!", "danger")
+            return redirect(url_for("/venue"))
+        
+        try:
+            total_capacity = int(total_capacity)
+            venue = Venue(name=name, total_capacity=total_capacity)
+            db.session.add(venue)
+            db.session.commit()
+            
+            flash("Venue added successfully!", "success")
+        
+        except ValueError:
+            flash("Total Capacity must be a number", "danger")
+        except Exception as e:
+            flash(f"Error:{e}","danger")
+            db.session.rollback()
+    
     return render_template("venueManagement.html")
