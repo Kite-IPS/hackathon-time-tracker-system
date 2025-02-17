@@ -141,11 +141,17 @@ tbody tr:hover {
 }
 
 .footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+  color: var(--text-color-primary);
+  padding: 2em;
+  text-align: center;
+  background: var(--background-color);
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footerContentText {
+  font-size: 1em;
+  font-weight: bold;
 }
