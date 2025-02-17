@@ -111,15 +111,15 @@ def teamDetails():
         total_time=total_time
     )
 
-@bp.route("/venue", methods=["GET", "POST"])
-def VM():
+@bp.route("/venue-management", methods=["GET", "POST"])
+def venueManagement():
     if request.method == "POST":
         name = request.form.get("name")
         total_capacity = request.form.get("total_capacity")
         
         if not name or not total_capacity:
             flash("Enter all the required fields!", "danger")
-            return redirect(url_for("/venue"))
+            return redirect(url_for("/venue-management"))
         
         try:
             total_capacity = int(total_capacity)
@@ -136,3 +136,7 @@ def VM():
             db.session.rollback()
     
     return render_template("venueManagement.html")
+
+@bp.route("/venue")
+def venue():
+    return render_template ("venue.html")
