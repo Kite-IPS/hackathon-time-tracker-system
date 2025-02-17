@@ -113,3 +113,8 @@ def teamDetails():
         students_in_team=students_in_team,
         total_time=total_time
     )
+
+
+@bp.route("/template_route")
+def template():
+    render_template("hello.html")
