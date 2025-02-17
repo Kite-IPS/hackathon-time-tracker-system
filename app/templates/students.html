@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Time Tracker</title>
-    <link rel="stylesheet" href="static/css/students.css">
+    <link rel="stylesheet" href="static/css/students.css" />
     <script src="static/js/students.js" defer></script>
-</head>
-<body>
-    
+  </head>
+  <body>
     <!-- NavBar Start -->
     <div class="header">
-        <div class="headerContainer">
-          <div id="appName">Pyexpo'25</div>
-          <div class="burgerIcon" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          <div class="navBar">
-            <a class="navMenu" href="/">Dashboard</a>
-            <a class="navMenu" href="team">Team</a>
-            <a class="navMenu" href="students">Students</a>
-            <a class="navMenu" href="venue-management">Venue</a>
-          </div>
+      <div class="headerContainer">
+        <div id="appName">Pyexpo'25</div>
+        <div class="burgerIcon" onclick="toggleMenu()">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="navBar">
+          <a class="navMenu" href="/">Dashboard</a>
+          <a class="navMenu" href="team">Team</a>
+          <a class="navMenu" href="students">Students</a>
+          <a class="navMenu" href="venue">Venue</a>
+          <a class="navMenu" href="venue-management">Venue Management</a>
         </div>
       </div>
-      <!-- NavBar End -->
+    </div>
+    <!-- NavBar End -->
 
-       <!-- Team Table Start -->
+    <!-- Team Table Start -->
     <div class="mainTabel">
         <div class="search-container">
           <input type="text" id="searchInput" placeholder="Search student..." />
@@ -64,17 +64,44 @@
           <button id="nextButton" onclick="nextPage()">Next</button>
         </div>
       </div>
-  
-      <!-- Team Table End -->
-  
-      <!-- Footer Start -->
-      <div class="footer">
-        <div class="footerContentText">
-          Designed and Developed by Ips Tech Community
-        </div>
+      <table id="teamTable">
+        <thead>
+          <tr>
+            <th>Team Id</th>
+            <th>Roll NUmber</th>
+            <th>Student Name</th>
+            <th>Time Spent</th>
+            <th>Total Time</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Table rows will be populated dynamically -->
+          {% for student in students %}
+          <tr>
+            <td>{{ student.team_id }}</td>
+            <td>{{ student.roll_num }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.time_out() }}</td>
+            <td>{{ total_time }} hours</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="pagination">
+        <button id="prevButton" onclick="prevPage()">Prev</button>
+        <span id="pageNumber">1</span>
+        <button id="nextButton" onclick="nextPage()">Next</button>
       </div>
-      <!-- Footer End -->
+    </div>
 
+    <!-- Team Table End -->
 
-</body>
+    <!-- Footer Start -->
+    <div class="footer">
+      <div class="footerContentText">
+        Designed and Developed by Ips Tech Community
+      </div>
+    </div>
+    <!-- Footer End -->
+  </body>
 </html>

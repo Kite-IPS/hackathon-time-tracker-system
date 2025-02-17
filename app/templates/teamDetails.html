@@ -21,7 +21,8 @@
           <a class="navMenu" href="/">Dashboard</a>
           <a class="navMenu" href="team">Team</a>
           <a class="navMenu" href="students">Students</a>
-          <a class="navMenu" href="venue-management">Venue</a>
+          <a class="navMenu" href="venue">Venue</a>
+          <a class="navMenu" href="venue-management">Venue Management</a>
         </div>
       </div>
     </div>
@@ -36,15 +37,21 @@
         <div class="mainContentBody" id="teamData">
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Team Name</div>
-            <div class="mainContentBodyCardValue">{{team_data.name if team_data else 'N/A'}}</div>
+            <div class="mainContentBodyCardValue">
+              {{team_data.name if team_data else 'N/A'}}
+            </div>
           </div>
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Time Spent</div>
-            <div class="mainContentBodyCardValue">{{team_data.team_time_out() if team_data else 'N/A'}} hours</div>
+            <div class="mainContentBodyCardValue">
+              {{team_data.team_time_out() if team_data else 'N/A'}} hours
+            </div>
           </div>
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Total Time</div>
-            <div class="mainContentBodyCardValue">{{total_time if total_time else 'N/A'}} hours</div>
+            <div class="mainContentBodyCardValue">
+              {{total_time if total_time else 'N/A'}} hours
+            </div>
           </div>
         </div>
       </div>
@@ -56,24 +63,24 @@
       <table id="teamTable">
         <thead>
           <tr>
-            <th> Students Name </th>
-            <th> Roll Number </th>
-            <th> Time Spent </th>
-            <th> Total Time </th>
-            <th> Status </th>
+            <th>Students Name</th>
+            <th>Roll Number</th>
+            <th>Time Spent</th>
+            <th>Total Time</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody id="tableBody">
           <!-- Table rows will be populated dynamically -->
-           {% for student in students_in_team %}
-            <tr>
-                <td> {{ student.name }} </td>
-                <td> {{ student.roll_num }} </td>
-                <td> {{ student.time_out() }} hours </td>
-                <td> {{ total_time }} hours </td>
-                <td> {{ student.status() }} </td>
-            </tr>
-           {% endfor %}
+          {% for student in students_in_team %}
+          <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.roll_num }}</td>
+            <td>{{ student.time_out() }} hours</td>
+            <td>{{ total_time }} hours</td>
+            <td>{{ student.status() }}</td>
+          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
