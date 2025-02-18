@@ -21,6 +21,8 @@
           <a class="navMenu" href="/">Dashboard</a>
           <a class="navMenu" href="team">Team</a>
           <a class="navMenu" href="students">Students</a>
+          <a class="navMenu" href="venue">Venue</a>
+          <a class="navMenu" href="venue-management">Venue Management</a>
         </div>
       </div>
     </div>
@@ -35,11 +37,15 @@
         <div class="mainContentBody">
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Total Students</div>
-            <div class="mainContentBodyCardValue" id="TotalStudents">{{ total_students }}</div>
+            <div class="mainContentBodyCardValue" id="TotalStudents">
+              {{ total_students }}
+            </div>
           </div>
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Total Teams</div>
-            <div class="mainContentBodyCardValue" id="TotalTeams">{{ total_teams }}</div>
+            <div class="mainContentBodyCardValue" id="TotalTeams">
+              {{ total_teams }}
+            </div>
           </div>
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Total Time</div>
@@ -69,12 +75,12 @@
         <tbody id="tableBody">
           <!-- Table rows will be populated dynamically -->
           {% for team in teams %}
-           <tr>
-            <td> {{team._id}} </td>
-            <td> {{team.name}} </td>
-            <td> {{team.team_time_out()}} </td>
-            <td> {{total_time}} hours </td>
-           </tr>
+          <tr>
+            <td>{{team._id}}</td>
+            <td>{{team.name}}</td>
+            <td>{{team.team_time_out()}}</td>
+            <td>{{total_time}} hours</td>
+          </tr>
           {% endfor %}
         </tbody>
       </table>

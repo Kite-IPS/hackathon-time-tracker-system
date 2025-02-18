@@ -126,7 +126,7 @@
     text-align: center;
     border-bottom: 1px solid #ddd;
   }
-  
+
   .mainTabel th {
     background: #f9f9f9;
     font-weight: bold;
@@ -139,6 +139,7 @@
   .mainTabel td {
     color: var(--text-color-primary);
   }
+  
   
   /* Pagination */
   .pagination {
@@ -226,22 +227,23 @@
     }
   
     button {
-      width: 100%;
+      width: 75px;
     }
   }
   
   /* Footer */
   .footer {
     color: var(--text-color-primary);
-    padding: 1em;
+    padding: 2em;
     text-align: center;
-    height: 5px;
     background: var(--background-color);
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
   
   .footerContentText {
     font-size: 1em;
     font-weight: bold;
   }
-  

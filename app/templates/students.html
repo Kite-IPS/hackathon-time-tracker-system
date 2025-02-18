@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Time Tracker</title>
-    <link rel="stylesheet" href="static/css/students.css">
+    <link rel="stylesheet" href="static/css/students.css" />
     <script src="static/js/students.js" defer></script>
-</head>
-<body>
-    
+  </head>
+  <body>
     <!-- NavBar Start -->
     <div class="header">
-        <div class="headerContainer">
-          <div id="appName">Pyexpo'25</div>
-          <div class="burgerIcon" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          <div class="navBar">
-            <a class="navMenu" href="/">Dashboard</a>
-            <a class="navMenu" href="team">Team</a>
-            <a class="navMenu" href="students">Students</a>
-          </div>
+      <div class="headerContainer">
+        <div id="appName">Pyexpo'25</div>
+        <div class="burgerIcon" onclick="toggleMenu()">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="navBar">
+          <a class="navMenu" href="/">Dashboard</a>
+          <a class="navMenu" href="team">Team</a>
+          <a class="navMenu" href="students">Students</a>
+          <a class="navMenu" href="venue">Venue</a>
+          <a class="navMenu" href="venue-management">Venue Management</a>
         </div>
       </div>
-      <!-- NavBar End -->
+    </div>
+    <!-- NavBar End -->
 
-       <!-- Team Table Start -->
+    <!-- Team Table Start -->
     <div class="mainTabel">
         <div class="search-container">
           <input type="text" id="searchInput" placeholder="Search student..." />
@@ -38,7 +39,7 @@
           <thead>
             <tr>
               <th>Team Id</th>
-              <th>Roll NUmber</th>
+              <th>Roll Number</th>
               <th>Student Name</th>
               <th>Time Spent</th>
               <th>Total Time</th>
@@ -51,7 +52,7 @@
                 <td> {{ student.team_id  }} </td>
                 <td> {{ student.roll_num }} </td>
                 <td> {{ student.name }} </td>
-                <td> {{ student.time_out() }}  </td>
+                <td> {{ student.time_out() }} hours </td>
                 <td> {{ total_time }} hours </td>
               </tr>
             {% endfor %}
@@ -63,17 +64,14 @@
           <button id="nextButton" onclick="nextPage()">Next</button>
         </div>
       </div>
-  
-      <!-- Team Table End -->
-  
-      <!-- Footer Start -->
-      <div class="footer">
-        <div class="footerContentText">
-          Designed and Developed by Ips Tech Community
-        </div>
+    <!-- Team Table End -->
+
+    <!-- Footer Start -->
+    <div class="footer">
+      <div class="footerContentText">
+        Designed and Developed by Ips Tech Community
       </div>
-      <!-- Footer End -->
-
-
-</body>
+    </div>
+    <!-- Footer End -->
+  </body>
 </html>

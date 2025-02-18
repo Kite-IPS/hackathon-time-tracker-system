@@ -40,8 +40,6 @@ async function fetch_teamDetails() {
 
 }
 
-
-
 // Table rendering function
 function renderTable() {
     const tableBody = document.getElementById("tableBody");

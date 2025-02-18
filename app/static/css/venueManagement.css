@@ -1,0 +1,314 @@
+:root {
+  --primary-color-light: #00d4ff;
+  --primary-color-dark: #007bff;
+  --text-color-primary: #333;
+  --text-color-secondary: #555;
+  --background-color: #ffffff;
+  --hover-color-light: #008cff;
+  --hover-color-dark: #0056b3;
+  --alert-color-light: #ff2f2f;
+  --alert-color-dark: #e60000;
+}
+
+/* Global Styles */
+body {
+  background-color: var(--background-color);
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color-primary);
+}
+
+/* NavBar Style Start */
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background: var(--background-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin: 1em;
+  position: relative;
+}
+
+#appName {
+  font-size: 2em;
+  font-weight: bold;
+  background: linear-gradient(45deg,
+      var(--primary-color-dark),
+      var(--primary-color-light));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navMenu {
+  text-decoration: none;
+  color: var(--text-color-primary);
+  margin: 0 1em;
+  font-size: 1.3em;
+  transition: 0.3s;
+}
+
+.navMenu:hover {
+  color: var(--primary-color-dark);
+}
+
+/* Burger Icon */
+.burgerIcon {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.burgerIcon div {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-color-primary);
+  margin: 4px 0;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .navBar {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 1em;
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
+  }
+
+  .navBar.active {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  .burgerIcon {
+    display: flex;
+  }
+}
+
+.table-style {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 18px;
+  text-align: left;
+}
+
+.table-style th,
+.table-style td {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+.table-style th {
+  background-color: #008cff;
+  color: white;
+}
+
+.table-style tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-style tbody tr:hover {
+  background-color: #ddd;
+}
+
+.slar-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 18px;
+  text-align: left;
+}
+
+.slar-table th,
+.slar-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+.slar-table th {
+  background-color: #008cff;
+  color: white;
+}
+
+.slar-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.slar-table tbody tr:hover {
+  background-color: #ddd;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.venue-section,
+.slar-section {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: var(--primary-color);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input,
+select,
+button {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid var(--table-border);
+}
+
+button {
+  background: var(--button-bg);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--button-hover);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+th,
+td {
+  padding: 1em;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #f9f9f9;
+  font-weight: bold;
+}
+
+td:hover{
+  color: var(--text-color-primary);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .venue-section,
+  .slar-section {
+    width: 100%;
+  }
+}
+
+/* General Button Styles */
+button {
+  background-color: #4caf50;
+  /* Green background */
+  color: white;
+  /* White text */
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 50%;
+}
+
+/* Hover Effect for Buttons */
+button:hover {
+  background-color: #45a049;
+  /* Slightly darker green */
+  transform: scale(1.05);
+  /* Slight grow effect */
+}
+
+/* Focus Effect for Buttons */
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  /* Blue focus shadow */
+}
+
+/* Disabled Button */
+button:disabled {
+  background-color: #cccccc;
+  /* Gray background */
+  cursor: not-allowed;
+  /* Show as disabled */
+}
+
+/* Specific Styling for Save Buttons */
+#saveVenueBtn,
+#saveSlarBtn {
+  background-color: #007bff;
+  /* Blue background */
+}
+
+#saveVenueBtn:hover,
+#saveSlarBtn:hover {
+  background-color: #0056b3;
+  /* Darker blue on hover */
+}
+
+/* Footer */
+.footer {
+  color: var(--text-color-primary);
+  padding: 2em;
+  text-align: center;
+  background: var(--background-color);
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footerContentText {
+  font-size: 1em;
+  font-weight: bold;
+}

@@ -1,0 +1,232 @@
+:root {
+  --primary-color-light: #00d4ff;
+  --primary-color-dark: #007bff;
+  --text-color-primary: #333;
+  --text-color-secondary: #555;
+  --background-color: #ffffff;
+  --hover-color-light: #008cff;
+  --hover-color-dark: #0056b3;
+  --alert-color-light: #ff2f2f;
+  --alert-color-dark: #e60000;
+}
+
+/* Global Styles */
+body {
+  background-color: var(--background-color);
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color-primary);
+}
+
+/* NavBar Style Start */
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background: var(--background-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin: 1em;
+  position: relative;
+}
+
+#appName {
+  font-size: 2em;
+  font-weight: bold;
+  background: linear-gradient(45deg, var(--primary-color-dark), var(--primary-color-light));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navMenu {
+  text-decoration: none;
+  color: var(--text-color-primary);
+  margin: 0 1em;
+  font-size: 1.3em;
+  transition: 0.3s;
+}
+
+.navMenu:hover {
+  color: var(--primary-color-dark);
+}
+
+/* Burger Icon */
+.burgerIcon {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.burgerIcon div {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-color-primary);
+  margin: 4px 0;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .navBar {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 1em;
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
+  }
+
+  .navBar.active {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  .burgerIcon {
+    display: flex;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+
+/* Table Layout */
+
+.table-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px; /* Increased gap for more spacing */
+  flex-wrap: wrap;
+}
+
+.table-wrapper {
+  flex: 1;
+  min-width: 320px;
+  padding: 15px; /* Added padding for spacing */
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+th, td {
+  padding: 1.2em;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #f9f9f9;
+  font-weight: bold;
+}
+
+tbody tr:hover {
+  background: #b4b4b4;
+}
+
+/* Responsive Table Layout */
+@media (max-width: 1024px) {
+  .table-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .table-wrapper {
+    width: 50%;
+  }
+}
+.page-indicator {
+  width: 50px;
+  height: 25px;
+  text-align: center;
+  font-size: 14px;
+  margin: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+/* Pagination Container */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Pagination Buttons */
+.pagination-container button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  width: 20%;
+}
+/* Hover effect for buttons */
+.pagination-container button:hover {
+  background-color: #008cff;
+}
+
+/* Active Page Button */
+.pagination-container button.active {
+  background-color: #008cff;
+  font-weight: bold;
+}
+
+/* Disabled Page Button */
+.pagination-container button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+
+.footer {
+  color: var(--text-color-primary);
+  padding: 2em;
+  text-align: center;
+  background: var(--background-color);
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footerContentText {
+  font-size: 1em;
+  font-weight: bold;
+}

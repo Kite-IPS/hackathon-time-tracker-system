@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, logging, jsonify
+from flask import Blueprint, render_template, request, logging, jsonify, flash, redirect, url_for
 from .models import *
 
 bp = Blueprint("main", __name__)
@@ -11,9 +11,9 @@ def dashboard():
     
     total_students = len(students)
     total_teams = len(teams)
-    # Check if the request is for HTML or JSON
+
     if request.accept_mimetypes.best == 'application/json':
-        # Return the teams data as JSON for API requests
+        
         teams_data = [
             {
                 "teamid": team._id,
@@ -25,16 +25,16 @@ def dashboard():
         ]
         return jsonify(teams_data)
     else:
-        # Otherwise, return the team page in HTML
+        
         return render_template("index.html", teams=teams, total_time=total_time, total_students=total_students, total_teams=total_teams)
 
 @bp.route("/team")
 def team():
     page = request.args.get('page', 1, type = int)
     teams = Team.query.all()
-    # Check if the request is for HTML or JSON
+    
     if request.accept_mimetypes.best == 'application/json':
-        # Return the teams data as JSON for API requests
+        
         teams_data = [
             {
                 "teamid": team._id,
@@ -46,7 +46,6 @@ def team():
         ]
         return jsonify(teams_data)
     else:
-        # Otherwise, return the team page in HTML
         return render_template("team.html", teams=teams, total_time=total_time)
 
 
@@ -54,13 +53,14 @@ def team():
 def student():
     page = request.args.get('page', 1, type = int)
     students = Student.query.all() 
-    #Check if the request is for HTML or JSON
+    
     if request.accept_mimetypes.best == 'application/json':
-        # Return the teams data as JSON for API requests
+        
         students_data = [
             {
                 "teamid": student.team_id,
-                "team": student.name,
+                "rollNum" : student.roll_num,
+                "name": student.name,
                 "timeSpent": student.time_out(),
                 "totalTime": total_time,
             }
@@ -68,7 +68,6 @@ def student():
         ]
         return jsonify(students_data)
     else:
-        # Otherwise, return the team page in HTML
         return render_template("students.html", students=students, total_time=total_time)
 
 @bp.route("/team-details", methods=["GET"])
@@ -86,8 +85,6 @@ def teamDetails():
     
     students_data = []
     for student in students_in_team:
-        
-            
         students_data.append({
                 "name": student.name,                    
                 "rollNum" : student.roll_num,
@@ -114,6 +111,31 @@ def teamDetails():
         total_time=total_time
     )
 
+@bp.route("/venue-management", methods=["GET", "POST"])
+def venueManagement():
+    if request.method == "POST":
+        name = request.form.get("name")
+        total_capacity = request.form.get("total_capacity")
+        
+        if not name or not total_capacity:
+            flash("Enter all the required fields!", "danger")
+            return redirect(url_for("/venue-management"))
+        
+        try:
+            total_capacity = int(total_capacity)
+            venue = Venue(name=name, total_capacity=total_capacity)
+            db.session.add(venue)
+            db.session.commit()
+            
+            flash("Venue added successfully!", "success")
+        
+        except ValueError:
+            flash("Total Capacity must be a number", "danger")
+        except Exception as e:
+            flash(f"Error:{e}","danger")
+            db.session.rollback()
+    
+    return render_template("venueManagement.html")
 
 @bp.route("/endpoint", methods=["GET"])
 def device_endpoint():
@@ -127,3 +149,6 @@ def device_endpoint():
 @bp.route("/template_route")
 def template():
     render_template("hello.html")
+@bp.route("/venue")
+def venue():
+    return render_template ("venue.html")
