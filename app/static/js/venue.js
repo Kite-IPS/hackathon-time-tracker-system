@@ -8,43 +8,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   
     async function initialize() {
-      await fetchTeam();
+      await fetchVenueData();
     }
     initialize();
   });
   
+  async function fetchVenueData() {
+    try{
+      const response = await fetch("/venue");
+      const data = await response.json();
 
-const venues = [
-    { name: 'Venue 1', currentOccupancy: 50, capacity: 100 },
-    { name: 'Venue 2', currentOccupancy: 30, capacity: 60 },
-    { name: 'Venue 3', currentOccupancy: 40, capacity: 80 },
-    { name: 'Venue 4', currentOccupancy: 20, capacity: 50 },
-    { name: 'Venue 5', currentOccupancy: 10, capacity: 30 },
-    { name: 'Venue 6', currentOccupancy: 60, capacity: 100 },
-    { name: 'Venue 7', currentOccupancy: 25, capacity: 75 },
-    { name: 'Venue 8', currentOccupancy: 70, capacity: 120 },
-    { name: 'Venue 9', currentOccupancy: 90, capacity: 100 },
-    { name: 'Venue 10', currentOccupancy: 45, capacity: 80 },
-  ];
-
-  const students = [
-    { name: 'John Doe', team: 'Team A', currentVenue: 'Venue 1' },
-    { name: 'Jane Smith', team: 'Team B', currentVenue: 'Venue 2' },
-    { name: 'Alex Brown', team: 'Team A', currentVenue: 'Venue 3' },
-    { name: 'Emily Davis', team: 'Team C', currentVenue: 'Venue 4' },
-    { name: 'Michael Clark', team: 'Team B', currentVenue: 'Venue 5' },
-    { name: 'Sarah Lee', team: 'Team C', currentVenue: 'Venue 6' },
-    { name: 'David Wilson', team: 'Team A', currentVenue: 'Venue 7' },
-    { name: 'Olivia Moore', team: 'Team B', currentVenue: 'Venue 8' },
-    { name: 'William Johnson', team: 'Team C', currentVenue: 'Venue 9' },
-    { name: 'Sophia Martinez', team: 'Team A', currentVenue: 'Venue 10' },
-  ];
-
-  const teams = [
-    { team: 'Team A', students: ['John Doe', 'Alex Brown', 'David Wilson', 'Sophia Martinez'], venue: 'Venue 1' },
-    { team: 'Team B', students: ['Jane Smith', 'Michael Clark', 'Olivia Moore'], venue: 'Venue 2' },
-    { team: 'Team C', students: ['Emily Davis', 'Sarah Lee', 'William Johnson'], venue: 'Venue 3' },
-  ];
+      updateTableData(data.venues, "venueList", venuePage)
+      updateTableData(data.students, "studentList", studentPage);
+      updateTableData(data.teams, "teamList", teamPage);
+    } catch (error) {
+      console.error("Error fetching venue data:", error);
+    }
+  }
 
   // Pagination Logic
   const itemsPerPage = 5;

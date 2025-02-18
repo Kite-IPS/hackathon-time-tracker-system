@@ -3,7 +3,6 @@ from datetime import datetime, timezone
 import sqlite3
 
 total_time = 30 # Per person 30 hrs
-
 class Team(db.Model):
 
     _id = db.Column(db.Integer, primary_key=True)
@@ -22,7 +21,7 @@ class Student(db.Model):
     team_id = db.Column(db.Integer, db.ForeignKey("team._id"))
     
     def time_out(self):
-        entries = Entry.query.filter_by(student=self.rfid_num).order_by(Entry.timestamp).all()
+        entries = Entry.query.filter_by(student_rfid=self.rfid_num).order_by(Entry.timestamp).all()
         total_time_out = 0
         last_in_time = None
         
@@ -36,16 +35,26 @@ class Student(db.Model):
         return total_time_out
 
     @classmethod
-    def status(self):
-        return Entry.in_out(self.rfid_num)
+    def status(cls):
+        return Entry.in_out(cls)
     
     @classmethod
     def in_out(cls, student):
         db.session.expire_all()
-        total_entries = Entry.query.filter_by(student=student.rfid_num).count()
+        total_entries = Entry.query.filter_by(student_rfid=student.rfid_num).count()
         return "IN" if total_entries % 2 != 0 else "OUT"
         
+    @classmethod
+    def get_venue(rfid_num):
+        entry = db.session.query(Entry).filter_by(student_rfid = rfid_num).order_by(Entry.timestamp.desc()).first()
+        if not entry:
+            return "No entry records for this student"
         
+        hardware = db.session.query(HardwareUnit).filter_by(key = entry.device_key).first()
+        if not hardware:
+            return "No hardware unit found for this device"
+        
+        return hardware.venue
 class Entry(db.Model):
     _id = db.Column(db.Integer, primary_key=True)
     student_rfid = db.Column(db.String(10), db.ForeignKey("student.rfid_num"))

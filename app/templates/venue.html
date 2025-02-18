@@ -36,11 +36,17 @@
           <thead>
             <tr>
               <th>Venue Name</th>
-              <th>Current Occupancy</th>
               <th>Capacity</th>
             </tr>
           </thead>
-          <tbody id="venueList"></tbody>
+          <tbody id="venueList">
+            {% for venue in venues%}
+              <tr>
+                <td> {{ venue.name }} </td>
+                <td> {{ venue.total_capacity }} </td>
+              <tr>
+            {% endfor %}
+          </tbody>
         </table>
         <!-- Pagination for Venue Table -->
         <div id="venueList-pagination" class="pagination-container"></div>
@@ -57,7 +63,15 @@
               <th>Current Venue</th>
             </tr>
           </thead>
-          <tbody id="studentList"></tbody>
+          <tbody id="studentList">
+            {% for student in students %}
+              <tr>
+                <td> {{ student.name }} </td>
+                <td> {{ student.team }} </td>
+                <td> {{ student.venue }} </td>
+              </tr>
+            {% endfor %}
+          </tbody>
         </table>
         <!-- Pagination for Student Table -->
         <div id="studentList-pagination" class="pagination-container"></div>
@@ -74,7 +88,15 @@
               <th>Venue</th>
             </tr>
           </thead>
-          <tbody id="teamList"></tbody>
+          <tbody id="teamList">
+            {% for team in teams %}
+              <tr>
+                <td> {{ team.team }} </td>
+                <td> {{ team.members | join(', ') }} </td>
+                <td> {{ team.venue}} </td>
+              </tr>
+            {% endfor %}
+          </tbody>
         </table>
         <!-- Pagination for Team Table -->
         <div id="teamList-pagination" class="pagination-container"></div>

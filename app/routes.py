@@ -115,12 +115,10 @@ def teamDetails():
 @bp.route("/venue-management", methods=["GET", "POST"])
 def venueManagement():
     if request.method == "POST":
-        flash("POST METHOD")
         name = request.form.get("name")
         total_capacity = request.form.get("total_capacity")
         
         try:
-            flash("Got Values")
             total_capacity = int(total_capacity)
             venue = Venue(name=name, total_capacity=total_capacity)
             db.session.add(venue)
@@ -154,6 +152,59 @@ def device_endpoint():
 @bp.route("/template_route")
 def template():
     render_template("hello.html")
+    
 @bp.route("/venue")
 def venue():
-    return render_template ("venue.html")
+    venues = Venue.query.all()
+    students = Student.query.all()
+    teams = Team.query.all()
+    
+    venue_data = [{
+        "name" : venue.name, 
+        "total_capacity" : venue.total_capacity
+    } for venue in venues
+    ]
+
+    # Retrieve teams and their venue details
+    team_data = []
+    for team in teams:
+        latest_entry = (
+            db.session.query(Entry, HardwareUnit)
+            .join(HardwareUnit, Entry.device_key == HardwareUnit.key)
+            .filter(Entry.student_rfid.in_([s.rfid_num for s in team.members]))
+            .order_by(Entry.timestamp.desc())
+            .first()
+        )
+        venue_name = latest_entry.HardwareUnit.venue if latest_entry else "No Venue Assigned"
+        
+        team_data.append({
+            "team": team.name,
+            "venue": venue_name,
+            "members": [s.name for s in team.members]
+        })
+
+    # Retrieve students, their teams, and venue locations
+    student_data = []
+    for student in students:
+        latest_entry = (
+            db.session.query(Entry, HardwareUnit)
+            .join(HardwareUnit, Entry.device_key == HardwareUnit.key)
+            .filter(Entry.student_rfid == student.rfid_num)
+            .order_by(Entry.timestamp.desc())
+            .first()
+        )
+        venue_name = latest_entry.HardwareUnit.venue if latest_entry else "No Venue Assigned"
+
+        student_data.append({
+            "name": student.name,
+            "roll_num": student.roll_num,
+            "team": student.team.name if student.team else "No Team",
+            "venue": venue_name
+        })
+
+
+    return render_template("venue.html",
+        venues= venue_data,
+        students = student_data,
+        teams = team_data
+    )
