@@ -52,10 +52,9 @@ class Entry(db.Model):
         
 
 class Venue(db.Model):
-
+    __tablename__ = 'venue'
     name = db.Column(db.String(100), primary_key=True)
     total_capacity = db.Column(db.Integer)
-
 
 class HardwareUnit(db.Model):
 

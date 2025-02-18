@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, logging, jsonify, flash, redirect, url_for
 from .models import *
+import logging
 
 bp = Blueprint("main", __name__)
 
@@ -114,14 +115,12 @@ def teamDetails():
 @bp.route("/venue-management", methods=["GET", "POST"])
 def venueManagement():
     if request.method == "POST":
+        flash("POST METHOD")
         name = request.form.get("name")
         total_capacity = request.form.get("total_capacity")
         
-        if not name or not total_capacity:
-            flash("Enter all the required fields!", "danger")
-            return redirect(url_for("/venue-management"))
-        
         try:
+            flash("Got Values")
             total_capacity = int(total_capacity)
             venue = Venue(name=name, total_capacity=total_capacity)
             db.session.add(venue)
@@ -135,7 +134,13 @@ def venueManagement():
             flash(f"Error:{e}","danger")
             db.session.rollback()
     
-    return render_template("venueManagement.html")
+    venues = Venue.query.all() 
+    venues_data =[{
+            "name": venue.name,
+            "total_capacity": venue.total_capacity 
+        } for venue in venues]
+    
+    return render_template("venueManagement.html", venues=venues_data)
 
 @bp.route("/venue")
 def venue():

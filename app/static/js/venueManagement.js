@@ -8,14 +8,48 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   async function initialize() {
-    await fetchTeam();
+    await fetchVenues();
   }
   initialize();
 });
 
+async function fetchVenues() {
+  try{
+    const response = await fetch("/venue-management?format=json");
 
-document.addEventListener('DOMContentLoaded', function () {
-    const venueForm = document.getElementById('venueForm');
+    if (!response.ok){
+      throw new Error(`ERROR: $response.status`);
+    }
+
+    const venues = await response.json();
+    console.log("Venues fetched:", venues);
+
+    const venueList = document.getElementById("venueList");
+    const slarVenueSelect = document.getElementById("slarVenueSelect");
+
+    venueList.innerHTML = " " // Clear Table
+    slarVenueSelect.innerHTML = `<option value = "" disabled selected>Select Venue</option>`; //Reset Dropdown 
+
+    venues.forEach(venue => {
+      // Add venue to table
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${venue.name}</td><td>${venue.total_capacity}</td>`;
+      venueList.appendChild(row);
+
+      //Add venue to SLAR dropdown
+      const venueOption = document.createElement("option");
+      venueOption.value = venue.name;
+      venueOption.textContent = venue.name;
+      slarVenueSelect.appendChild(venueOption);      
+    });
+  }
+  catch (error){
+      console.error("Error fetching venues:", error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async function () {
+    const venueForm = document.querySelector('venueForm');
     const venueNameInput = document.getElementById('venueName');
     const venueCapacityInput = document.getElementById('venueCapacity');
     const venueList = document.getElementById('venueList');
@@ -27,30 +61,38 @@ document.addEventListener('DOMContentLoaded', function () {
     const slarList = document.getElementById('slarList');
   
     // Save Venue
-    venueForm.addEventListener('submit', function (e) {
+    venueForm.addEventListener('submit', async (event) => {
       e.preventDefault();
   
-      const venueName = venueNameInput.value;
-      const venueCapacity = venueCapacityInput.value;
-  
-      // Create new row for venue
-      const row = document.createElement('tr');
-      row.innerHTML = `<td>${venueName}</td><td>${venueCapacity}</td>`;
-  
-      // Add row to table
-      venueList.appendChild(row);
-  
-      // Add the new venue option to the SLAR form dropdown
-      const venueOption = document.createElement('option');
-      venueOption.value = venueName;
-      venueOption.textContent = venueName;
-      slarVenueSelect.appendChild(venueOption);
-  
-      // Clear the form fields
-      venueNameInput.value = '';
-      venueCapacityInput.value = '';
+      const venueName = venueNameInput.value.trim();
+      const venueCapacity = venueCapacityInput.value.trim();
+
+      if (!venueName || !venueCapacity) {
+        alert("Please fill in all fields.");
+        return;
+      } 
+      
+      try {
+          const response = await fetch("/venue-management", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name: venueName, total_capacity: venueCapacity })
+          });
+    
+          if (response.ok) {
+              venueNameInput.value = "";
+              venueCapacityInput.value = "";
+              fetchVenues(); // Refresh venue list
+              console.log(venueNameInput,venueCapacityInput)
+          } else {
+              alert("Error saving venue.");
+          }
+      } catch (error) {
+          console.error("Error:", error);
+      }
     });
   
+
     // Save SLAR Unit
     slarForm.addEventListener('submit', function (e) {
       e.preventDefault();

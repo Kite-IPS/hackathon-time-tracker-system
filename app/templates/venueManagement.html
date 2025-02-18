@@ -32,16 +32,14 @@
     <div class="container">
       <div class="venue-section">
         <h2>Venues</h2>
-        <form id="venueForm" >
-          <input type="text" id="venueName" placeholder="Venue Name" required />
-          <input
-            type="number"
-            id="venueCapacity"
-            placeholder="Capacity"
-            required
-          />
+        <!-- Form to add new Venue -->
+        <form id="venueForm" method = "POST" action="{{ url_for('main.venueManagement') }}" >
+          <input type="text" id="venueName" name= "name" placeholder="Venue Name" required />
+          <input type="number" id="venueCapacity" name = "total_capacity" placeholder="Capacity" required />
           <button type="submit" id="saveVenueBtn">Save Venue</button>
         </form>
+
+        <!-- Venue List Table-->
         <table class="table-style">
           <thead>
             <tr>
@@ -49,30 +47,29 @@
               <th>Capacity</th>
             </tr>
           </thead>
-          <tbody id="venueList"></tbody>
+          <tbody id="venueList">
+            {% for venue in venues %}
+              <tr>
+                <td> {{ venue.name }} </td>
+                <td> {{ venue.total_capacity }} </td>
+              </tr>
+            {% endfor %}
+          </tbody>
         </table>
       </div>
 
       <div class="slar-section">
         <h2>SLAR Units</h2>
+        <!-- Form for SLAR -->
         <form id="slarForm">
-          <input
-            type="text"
-            id="slarName"
-            placeholder="SLAR Unit Name"
-            required
-          />
+          <input type="text" id="slarName" placeholder="SLAR Unit Name" required />
           <select id="slarVenue">
             <option value="" disabled selected>Select Venue</option>
           </select>
-          <input
-            type="text"
-            id="expectedKey"
-            placeholder="Expected Key"
-            required
-          />
+          <input type="text" id="expectedKey" placeholder="Expected Key" required />
           <button type="submit" id="saveSlarBtn">Save SLAR Unit</button>
         </form>
+        <!-- SLAR List Table-->
         <table class="slar-table">
           <thead>
             <tr>
@@ -91,7 +88,7 @@
     <footer>
       <div class="footer">
         <div class="footerContentText">
-          Designed and Developed by Ips Tech Community
+          Designed and Developed by IPS Tech Community
         </div>
       </div>
     </footer>
