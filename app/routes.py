@@ -142,6 +142,18 @@ def venueManagement():
     
     return render_template("venueManagement.html", venues=venues_data)
 
+@bp.route("/endpoint", methods=["GET"])
+def device_endpoint():
+    rfid_num = request.args.get("rfid_num")
+    device_key = request.args.get("device_key")
+    if rfid_num == None or device_key == None:
+        raise AssertionError
+    Entry.make_entry(rfid_num, device_key)
+    return "success"
+
+@bp.route("/template_route")
+def template():
+    render_template("hello.html")
 @bp.route("/venue")
 def venue():
     return render_template ("venue.html")

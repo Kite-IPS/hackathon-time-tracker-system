@@ -38,18 +38,25 @@ class Student(db.Model):
     @classmethod
     def status(self):
         return Entry.in_out(self.rfid_num)
-        
-class Entry(db.Model):
-    _id = db.Column(db.Integer, primary_key=True)
-    student = db.Column(db.String(10), db.ForeignKey("student.rfid_num"))
-    timestamp = db.Column(db.DateTime, nullable=False, default= lambda: datetime.now(timezone.utc))
     
     @classmethod
     def in_out(cls, student):
         db.session.expire_all()
-        total_entries = Entry.query.filter_by(student=student).count()
+        total_entries = Entry.query.filter_by(student=student.rfid_num).count()
         return "IN" if total_entries % 2 != 0 else "OUT"
         
+        
+class Entry(db.Model):
+    _id = db.Column(db.Integer, primary_key=True)
+    student_rfid = db.Column(db.String(10), db.ForeignKey("student.rfid_num"))
+    timestamp = db.Column(db.DateTime, nullable=False, default= lambda: datetime.now(timezone.utc))
+    device_key = db.Column(db.String(10), db.ForeignKey("hardware_unit.key"))
+
+    @classmethod
+    def make_entry(cls, rfid_num, device_key):
+        entry = cls(student_rfid=rfid_num, device_key=device_key)
+        db.session.add(entry)
+        db.session.commit()
 
 class Venue(db.Model):
     __tablename__ = 'venue'
@@ -59,5 +66,6 @@ class Venue(db.Model):
 class HardwareUnit(db.Model):
 
     _id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(10))
+    name = db.Column(db.String(100))
     venue = db.Column(db.String(100), db.ForeignKey("venue.name"))
+    key = db.Column(db.String(10), unique=True)
