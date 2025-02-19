@@ -20,7 +20,7 @@ def dashboard():
                 "teamid": team._id,
                 "team": team.name,
                 "timeSpent": team.team_time_out(),
-                "totalTime": total_time,
+                "totalTime": team.team_total_time(),
             }
             for team in teams
         ]
@@ -91,7 +91,7 @@ def teamDetails():
                 "rollNum" : student.roll_num,
                 "timeSpent": student.time_out(),
                 "totalTime": total_time,
-                "status" : Student.status()
+                "status" : Student.status(student)
             })
 
 
@@ -133,12 +133,61 @@ def venueManagement():
             db.session.rollback()
     
     venues = Venue.query.all() 
+    hardware_units = HardwareUnit.query.all()
     venues_data =[{
             "name": venue.name,
             "total_capacity": venue.total_capacity 
         } for venue in venues]
+    hardware_unit = [{
+        "id":hardware_unit._id,
+        "name": hardware_unit.name,
+        "venue": hardware_unit.venue,
+        "key": hardware_unit.key
+    } for hardware_unit in hardware_units
+    ]
     
-    return render_template("venueManagement.html", venues=venues_data)
+    return render_template("venueManagement.html", venues=venues_data, hardware_units=hardware_units)
+
+
+
+@bp.route("/venue-management/slar", methods=["POST", "GET"])
+def save_slar_unit():
+    if request.method == "POST":
+        data = request.get_json()
+        name = data.get('slarName')
+        venue = data.get('venue')
+        key = data.get('expectedKey')
+        try:
+            if not name or not name or not key:
+                raise ValueError("Missing required fields")
+            
+            # Check existing venue
+            venue = Venue.query.filter_by(name=venue).first()
+            if not venue:
+                raise ValueError(f"Venue {venue} does not exist.")
+
+            # Save SLAR Unit
+            slar_unit = HardwareUnit(name= name, venue=venue, key=key)
+            db.session.add(slar_unit)
+            db.session.commit()
+
+            return jsonify({"message": "SLAR unit saved successfully"}), 200
+
+        except ValueError as e:
+            flash(str(e), "danger")
+            return jsonify({"error": str(e)}), 400
+        except Exception as e:
+            flash(f"Error: {str(e)}", "danger")
+            return jsonify({"error": str(e)}), 500
+    
+    slar_units = HardwareUnit.query.all()
+    slar_unit = [{
+        "name": slar.name,
+        "venue": slar.venue.name, 
+        "key": slar.key
+    } for slar in slar_units
+    ]
+    return render_template("venueManagement.html", slars=slar_units)
 
 @bp.route("/endpoint", methods=["GET"])
 def device_endpoint():

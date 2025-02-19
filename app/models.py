@@ -13,6 +13,9 @@ class Team(db.Model):
     def team_time_out(self):
         return sum(member.time_out() for member in self.members if member.time_out() is not None)
     
+    def team_total_time(self):
+        return total_time * len(self.members)
+    
 
 class Student(db.Model):
     rfid_num = db.Column(db.String(10), primary_key=True)
@@ -29,20 +32,26 @@ class Student(db.Model):
             if entry._id % 2 != 0: # Check In
                 last_in_time = entry.timestamp
             elif entry._id % 2 == 0 and last_in_time: # Check Out
-                total_time_out += (entry.timestamp - last_in_time).total_seconds() /3600 # In hours
+                total_time_out += (entry.timestamp - last_in_time).total_seconds() //3600 # In hours
                 last_in_time = None
         
         return total_time_out
 
     @classmethod
-    def status(cls):
-        return Entry.in_out(cls)
+    def status(cls,student):
+        return cls.in_out(student)
     
     @classmethod
     def in_out(cls, student):
         db.session.expire_all()
         total_entries = Entry.query.filter_by(student_rfid=student.rfid_num).count()
         return "IN" if total_entries % 2 != 0 else "OUT"
+
+    def status(self):
+        db.session.expire_all()
+        total_entries = Entry.query.filter_by(student_rfid=self.rfid_num).count()
+        return "IN" if total_entries % 2 != 0 else "OUT"
+
         
     @classmethod
     def get_venue(rfid_num):

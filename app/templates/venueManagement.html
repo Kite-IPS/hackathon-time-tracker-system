@@ -63,12 +63,13 @@
         <!-- Form for SLAR -->
         <form id="slarForm">
           <input type="text" id="slarName" placeholder="SLAR Unit Name" required />
-          <select id="slarVenue">
+          <select id="slarVenue" onchange="handleVenueChange()">
             <option value="" disabled selected>Select Venue</option>
           </select>
           <input type="text" id="expectedKey" placeholder="Expected Key" required />
           <button type="submit" id="saveSlarBtn">Save SLAR Unit</button>
         </form>
+
         <!-- SLAR List Table-->
         <table class="slar-table">
           <thead>
@@ -78,7 +79,15 @@
               <th>Expected Key</th>
             </tr>
           </thead>
-          <tbody id="slarList"></tbody>
+          <tbody id="slarList">
+            {% for slar in hardware_units %}
+              <tr>
+                <td> {{ slar.name }} </td>
+                <td> {{ slar.venue }} </td>
+                <td> {{ slar.key }} </td>
+              </tr>
+            {% endfor %}
+          </tbody>
         </table>
       </div>
     </div>

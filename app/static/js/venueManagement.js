@@ -38,7 +38,7 @@ async function fetchVenues() {
 
       //Add venue to SLAR dropdown
       const venueOption = document.createElement("option");
-      venueOption.value = venue.name;
+      venueOption.value = venue.id;
       venueOption.textContent = venue.name;
       slarVenueSelect.appendChild(venueOption);      
     });
@@ -92,9 +92,13 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
     });
   
+    function handleVenueChange() {
+      const selectedVenue = document.getElementById("slarVenue").value;
+      console.log("Selected Venue ID:", selectedVenue);
+    }
 
     // Save SLAR Unit
-    slarForm.addEventListener('submit', function (e) {
+    slarForm.addEventListener('submit', async (event) => {
       e.preventDefault();
   
       const slarName = slarNameInput.value;
@@ -102,16 +106,27 @@ document.addEventListener('DOMContentLoaded', async function () {
       const expectedKey = expectedKeyInput.value;
   
       // Create new row for SLAR unit
-      const row = document.createElement('tr');
-      row.innerHTML = `<td>${slarName}</td><td>${selectedVenue}</td><td>${expectedKey}</td>`;
+      try {
+        const response = await fetch("/venue-management/slar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ slarName: slarName, venue: selectedVenue, expectedKey: expectedKey })
+        });
   
-      // Add row to table
-      slarList.appendChild(row);
-  
-      // Clear the form fields
-      slarNameInput.value = '';
-      slarVenueSelect.value = '';
-      expectedKeyInput.value = '';
-    });
+        if (response.ok) {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${slarName}</td><td>${selectedVenue}</td><td>${expectedKey}</td>`;
+            slarList.appendChild(row);
+
+            slarNameInput.value = '';
+            slarVenueSelect.value = '';
+            expectedKeyInput.value = '';
+        } else {
+            alert("Error saving SLAR unit.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
   });
+});
   
