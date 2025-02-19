@@ -44,7 +44,7 @@
           <div class="mainContentBodyCard">
             <div class="mainContentBodyCardTitle">Time Spent</div>
             <div class="mainContentBodyCardValue">
-              {{team_data.team_time_out() if team_data else 'N/A'}} hours
+              {{team_data.team_time_out().hrs | int if team_data else 'N/A'}} hrs {{team_data.team_time_out().mins | int if team_data else 'N/A'}} mins
             </div>
           </div>
           <div class="mainContentBodyCard">
@@ -76,7 +76,7 @@
           <tr>
             <td>{{ student.name }}</td>
             <td>{{ student.roll_num }}</td>
-            <td>{{ student.time_out() }} hours</td>
+            <td>{{ student.time_out().hrs | int }} hrs {{ student.time_out().mins | int }} mins </td>
             <td>{{ total_time }} hours</td>
             <td>{{ student.status() }}</td>
           </tr>

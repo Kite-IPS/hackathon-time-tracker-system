@@ -1,5 +1,5 @@
 from . import db
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import sqlite3
 
 total_time = 30 # Per person 30 hrs
@@ -21,8 +21,9 @@ class Team(db.Model):
         total_seconds = delta.total_seconds()
         hours = total_seconds // 3600  # 3600 seconds in an hour
         minutes = (total_seconds % 3600) // 60  # Remaining minutes after extracting hours
+        time = {f"hrs": hours, "mins": minutes}
             
-        return {"hrs": hours, "mins": minutes}
+        return time
     
     def team_total_time(self):
         return total_time * len(self.members)
@@ -40,7 +41,7 @@ class Student(db.Model):
         entries = Entry.query.filter_by(student_rfid=self.rfid_num).order_by(Entry.timestamp).all()
 
         # adding current time as last entry to make calculation easy
-        entries = list(entries)
+        entries = list((entry.timestamp for entry in entries))
         entries.append(datetime.now())
         time_blocks = []
 
@@ -51,6 +52,10 @@ class Student(db.Model):
         for i in [block[1] for block in enumerate(time_blocks) if block[0] % 2 == 0]:
             time_spent += i
 
+        max_time = timedelta(hours=total_time)
+        if time_spent > max_time:
+            time_spent = max_time
+        
         total_seconds = time_spent.total_seconds()
         hours = total_seconds // 3600  # 3600 seconds in an hour
         minutes = (total_seconds % 3600) // 60  # Remaining minutes after extracting hours

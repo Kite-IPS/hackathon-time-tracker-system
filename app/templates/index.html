@@ -78,7 +78,7 @@
           <tr>
             <td>{{team._id}}</td>
             <td>{{team.name}}</td>
-            <td>{{team.team_time_out()}}</td>
+            <td>{{team.team_time_out().hrs | int }} hrs {{team.team_time_out().mins | int }} mins</td>
             <td>{{team.team_total_time()}} hours</td>
           </tr>
           {% endfor %}

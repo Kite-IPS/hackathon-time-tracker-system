@@ -52,7 +52,7 @@
                 <td> {{ student.team_id  }} </td>
                 <td> {{ student.roll_num }} </td>
                 <td> {{ student.name }} </td>
-                <td> {{ student.time_out() }} hours </td>
+                <td> {{ student.time_out().hrs | int }} hrs {{ student.time_out().mins | int }} mins </td>
                 <td> {{ total_time }} hours </td>
               </tr>
             {% endfor %}
