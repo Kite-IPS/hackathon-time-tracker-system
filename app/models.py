@@ -23,6 +23,8 @@ class Student(db.Model):
     roll_num = db.Column(db.String(10), unique=True, nullable=False)
     team_id = db.Column(db.Integer, db.ForeignKey("team._id"))
     
+    team = db.relationship("Team", backref="Student")
+    
     def time_out(self):
         entries = Entry.query.filter_by(student_rfid=self.rfid_num).order_by(Entry.timestamp).all()
         total_time_out = 0
@@ -32,7 +34,7 @@ class Student(db.Model):
             if entry._id % 2 != 0: # Check In
                 last_in_time = entry.timestamp
             elif entry._id % 2 == 0 and last_in_time: # Check Out
-                total_time_out += (entry.timestamp - last_in_time).total_seconds() //3600 # In hours
+                total_time_out += (entry.timestamp - last_in_time).total_seconds() # In hours
                 last_in_time = None
         
         return total_time_out
