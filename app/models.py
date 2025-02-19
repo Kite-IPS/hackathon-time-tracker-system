@@ -38,17 +38,24 @@ class Student(db.Model):
     
     def time_out(self):
         entries = Entry.query.filter_by(student_rfid=self.rfid_num).order_by(Entry.timestamp).all()
-        total_time_out = 0
-        last_in_time = None
+
+        # adding current time as last entry to make calculation easy
+        entries = list(entries)
+        entries.append(datetime.now())
+        time_blocks = []
+
+        for i in range(len(entries)-1):
+            time_blocks.append(entries[i+1] - entries[i])
         
-        for entry in entries:
-            if entry._id % 2 != 0: # Check In
-                last_in_time = entry.timestamp
-            elif entry._id % 2 == 0 and last_in_time: # Check Out
-                total_time_out += (entry.timestamp - last_in_time).total_seconds() //3600 # In hours
-                last_in_time = None
-        
-        return total_time_out
+        time_spent = timedelta()
+        for i in [block[1] for block in enumerate(time_blocks) if block[0] % 2 == 0]:
+            time_spent += i
+
+        total_seconds = time_spent.total_seconds()
+        hours = total_seconds // 3600  # 3600 seconds in an hour
+        minutes = (total_seconds % 3600) // 60  # Remaining minutes after extracting hours
+            
+        return {"hrs": hours, "mins": minutes}
 
     @classmethod
     def status(cls,student):
