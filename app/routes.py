@@ -198,6 +198,18 @@ def device_endpoint():
     Entry.make_entry(rfid_num, device_key)
     return "success"
 
+
+@bp.route("/manual", methods=["GET"])
+def device_endpoint():
+    roll_num = request.args.get("roll_num")
+    device_key = request.args.get("device_key")
+    venue = request.args.get("venue")
+    if roll_num is None or device_key is None or venue is None:
+        return 400
+    Entry.human_entry(roll_num, device_key)
+    return "success"
+
+
 @bp.route("/template_route")
 def template():
     render_template("hello.html")

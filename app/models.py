@@ -95,10 +95,17 @@ class Entry(db.Model):
     student_rfid = db.Column(db.String(10), db.ForeignKey("student.rfid_num"))
     timestamp = db.Column(db.DateTime, nullable=False, default= lambda: datetime.now(timezone.utc))
     device_key = db.Column(db.String(10), db.ForeignKey("hardware_unit.key"))
+    roll_num = db.Column(db.String(10), db.ForeignKey("student.roll_num"))
 
     @classmethod
     def make_entry(cls, rfid_num, device_key):
         entry = cls(student_rfid=rfid_num, device_key=device_key)
+        db.session.add(entry)
+        db.session.commit()
+
+    @classmethod
+    def human_entry(cls, roll_num, device_key, venue):
+        entry = cls(roll_num=roll_num, device_key=device_key, venue=venue)
         db.session.add(entry)
         db.session.commit()
 
