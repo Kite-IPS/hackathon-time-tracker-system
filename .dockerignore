@@ -2,3 +2,4 @@
 __pycache__
 dockerfile
 docker-compose.yml
+data_upload
