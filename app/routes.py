@@ -200,7 +200,7 @@ def device_endpoint():
 
 
 @bp.route("/manual", methods=["GET"])
-def device_endpoint():
+def manual_endpoint():
     roll_num = request.args.get("roll_num")
     device_key = request.args.get("device_key")
     if roll_num is None or device_key is None:
@@ -210,7 +210,7 @@ def device_endpoint():
 
 
 @bp.route("/manual_entry", methods=["GET"])
-def device_endpoint():
+def manal_entry():
     return render_template("html")
 
 @bp.route("/template_route")
