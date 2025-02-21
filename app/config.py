@@ -1,3 +1,5 @@
+import pytz
+
 
 class Config:
     
@@ -9,3 +11,9 @@ class Config:
     MYSQL_DB = 'flaskdb'  # The database name
     SQLALCHEMY_DATABASE_URI = f'mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DB}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    TIMEZONE = 'Asia/Kolkata'
+
+    @staticmethod
+    def get_timezone():
+        return pytz.timezone(Config.TIMEZONE)

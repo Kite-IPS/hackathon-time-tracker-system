@@ -1,8 +1,9 @@
 from . import db
-from datetime import datetime, timedelta, timezone
-import sqlite3
+from .config import Config
+from datetime import datetime, timedelta
 
 total_time = 30 # Per person 30 hrs
+
 class Team(db.Model):
 
     _id = db.Column(db.Integer, primary_key=True)
@@ -44,7 +45,7 @@ class Student(db.Model):
 
         # adding current time as last entry to make calculation easy
         entries = list((entry.timestamp for entry in entries))
-        entries.append(datetime.now())
+        entries.append(datetime.now(Config.get_timezone()))
         time_blocks = []
 
         for i in range(len(entries)-1):
@@ -102,7 +103,7 @@ class Student(db.Model):
 class Entry(db.Model):
     _id = db.Column(db.Integer, primary_key=True)
     student_rfid = db.Column(db.String(10), db.ForeignKey("student.rfid_num"))
-    timestamp = db.Column(db.DateTime, nullable=False, default= lambda: datetime.now(timezone.utc))
+    timestamp = db.Column(db.DateTime, nullable=False, default= lambda: datetime.now(Config.get_timezone()))
     device_key = db.Column(db.String(10), db.ForeignKey("hardware_unit.key"))
     roll_num = db.Column(db.String(10), db.ForeignKey("student.roll_num"))
 
