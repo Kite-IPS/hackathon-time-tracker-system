@@ -71,12 +71,19 @@ class Student(db.Model):
     @classmethod
     def in_out(cls, student):
         db.session.expire_all()
-        total_entries = Entry.query.filter_by(student_rfid=student.rfid_num).count()
+        entries = db.session.query(Entry).filter_by(student_rfid=student.rfid_num)
+        manual_entries = db.session.query(Entry).filter_by(roll_num=student.roll_num)
+        total_entries = entries.union(manual_entries).order_by(Entry.timestamp).count()        
+        
         return "IN" if total_entries % 2 != 0 else "OUT"
 
     def status(self):
         db.session.expire_all()
-        total_entries = Entry.query.filter_by(student_rfid=self.rfid_num).count()
+        
+        entries = db.session.query(Entry).filter_by(student_rfid=self.rfid_num)
+        manual_entries = db.session.query(Entry).filter_by(roll_num=self.roll_num)
+        total_entries = entries.union(manual_entries).order_by(Entry.timestamp).count()
+
         return "IN" if total_entries % 2 != 0 else "OUT"
 
         
