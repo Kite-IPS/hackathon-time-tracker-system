@@ -1,11 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual entry</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/css/manualEntry.css" />
+    <script src="static/js/manualEntry.js" defer></script>
+    <title>The Time Tracker</title>
+  </head>
+  <body>
+    <!-- NavBar Start -->
+    <div class="header">
+      <div class="headerContainer">
+        <div id="appName">Pyexpo'25</div>
+        <div class="burgerIcon" onclick="toggleMenu()">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="navBar">
+          <a class="navMenu" href="/">Dashboard</a>
+          <a class="navMenu" href="team">Team</a>
+          <a class="navMenu" href="students">Students</a>
+          <a class="navMenu" href="venue">Venue</a>
+          <a class="navMenu" href="venue-management">Venue Management</a>
+          <a class="navMenu" href="manual_entry">Manual Entry</a>
+        </div>
+      </div>
+    </div>
+    <!-- NavBar End -->
+
+    <div class="center">
+        <h1>Manual Manual Entry</h1>
+        <form>
+          <div class="inputbox">
+            <input type="text" required="required">
+            <span>Slar Id</span>
+          </div>
+          <div class="inputbox">
+            <input type="text" required="required">
+            <span>Pass Key</span>
+          </div>
+          <div class="inputbox">
+            <input type="button" value="submit">
+          </div>
+        </form>
+      </div>
+
+  
+    <!-- Footer Start -->
+    <div class="footer">
+      <div class="footerContentText">
+        Designed and Developed by Ips Tech Community
+      </div>
+    </div>
+    <!-- Footer End -->
+  </body>
 </html>

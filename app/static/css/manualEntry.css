@@ -1,0 +1,184 @@
+:root {
+    --primary-color-light: #00d4ff;
+    --primary-color-dark: #007bff;
+    --text-color-primary: #333;
+    --text-color-secondary: #555;
+    --background-color: #ffffff;
+    --hover-color-light: #008cff;
+    --hover-color-dark: #0056b3;
+    --alert-color-light: #ff2f2f;
+    --alert-color-dark: #e60000;
+  }
+  
+  /* Global Styles */
+  body {
+    background-color: var(--background-color);
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-color-primary);
+  }
+  
+  /* NavBar Style Start */
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    background: var(--background-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin: 1em;
+    position: relative;
+  }
+  
+  #appName {
+    font-size: 2em;
+    font-weight: bold;
+    background: linear-gradient(
+      45deg,
+      var(--primary-color-dark),
+      var(--primary-color-light)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navMenu {
+    text-decoration: none;
+    color: var(--text-color-primary);
+    margin: 0 1em;
+    font-size: 1.3em;
+    transition: 0.3s;
+  }
+  
+  .navMenu:hover {
+    color: var(--primary-color-dark);
+  }
+  
+  /* Burger Icon */
+  .burgerIcon {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .burgerIcon div {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color-primary);
+    margin: 4px 0;
+  }
+  
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .navBar {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 1em;
+      width: 100%;
+      text-align: center;
+      font-size: 1em;
+    }
+  
+    .navBar.active {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+    }
+  
+    .burgerIcon {
+      display: flex;
+    }
+  }
+
+  .center {
+    position: relative;
+    padding: 50px 50px;
+    background: #fff;
+    border-radius: 10px;
+  }
+  .center h1 {
+    font-size: 2em;
+    border-left: 5px solid dodgerblue;
+    padding: 10px;
+    color: #000;
+    letter-spacing: 5px;
+    margin-bottom: 60px;
+    font-weight: bold;
+    padding-left: 10px;
+  }
+  .center .inputbox {
+    position: relative;
+    width: 300px;
+    height: 50px;
+    margin-bottom: 50px;
+  }
+  .center .inputbox input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 2px solid #000;
+    outline: none;
+    background: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1.2em;
+  }
+  .center .inputbox:last-child {
+    margin-bottom: 0;
+  }
+  .center .inputbox span {
+    position: absolute;
+    top: 14px;
+    left: 20px;
+    font-size: 1em;
+    transition: 0.6s;
+    font-family: sans-serif;
+  }
+  .center .inputbox input:focus ~ span,
+  .center .inputbox input:valid ~ span {
+    transform: translateX(-13px) translateY(-35px);
+    font-size: 1em;
+  }
+  .center .inputbox [type="button"] {
+    width: 50%;
+    background: dodgerblue;
+    color: #fff;
+    border: #fff;
+  }
+  .center .inputbox:hover [type="button"] {
+    background: #008cff;
+  }
+  
+  /* Footer */
+.footer {
+    color: var(--text-color-primary);
+    padding: 2em;
+    text-align: center;
+    background: var(--background-color);
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footerContentText {
+    font-size: 1em;
+    font-weight: bold;
+  }
+

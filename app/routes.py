@@ -211,7 +211,7 @@ def manual_endpoint():
 
 @bp.route("/manual_entry", methods=["GET"])
 def manal_entry():
-    return render_template("html")
+    return render_template("manual_entry.html")
 
 @bp.route("/template_route")
 def template():
