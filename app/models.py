@@ -38,8 +38,8 @@ class Student(db.Model):
     team = db.relationship("Team", backref="Student")
     
     def time_out(self):
-        entries = Entry.query.filter_by(student_rfid=self.rfid_num).all()
-        manual_entries = Entry.query.filter_by(roll_num=self.roll_num).all()
+        entries = db.session.query(Entry).filter_by(student_rfid=self.rfid_num).all()
+        manual_entries = db.session.query(Entry).filter_by(roll_num=self.roll_num).all()
         entries = entries.union(manual_entries).order_by(Entry.timestamp).all()        
 
         # adding current time as last entry to make calculation easy
