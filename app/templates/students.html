@@ -44,6 +44,7 @@
               <th>Student Name</th>
               <th>Time Spent</th>
               <th>Total Time</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody id="tableBody">
@@ -54,6 +55,7 @@
                 <td> {{ student.roll_num }} </td>
                 <td> {{ student.name }} </td>
                 <td> {{ student.time_out().hrs | int }} hrs {{ student.time_out().mins | int }} mins </td>
+                <td> {{ student.status()}}</td>
                 <td> {{ total_time }} hours </td>
               </tr>
             {% endfor %}
