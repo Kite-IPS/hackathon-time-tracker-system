@@ -104,8 +104,8 @@ class Entry(db.Model):
         db.session.commit()
 
     @classmethod
-    def human_entry(cls, roll_num, device_key, venue):
-        entry = cls(roll_num=roll_num, device_key=device_key, venue=venue)
+    def human_entry(cls, roll_num, device_key):
+        entry = cls(roll_num=roll_num, device_key=device_key)
         db.session.add(entry)
         db.session.commit()
 
