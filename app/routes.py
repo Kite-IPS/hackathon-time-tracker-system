@@ -210,6 +210,10 @@ def device_endpoint():
     return "success"
 
 
+@bp.route("/manual_entry", methods=["GET"])
+def device_endpoint():
+    return render_template("html")
+
 @bp.route("/template_route")
 def template():
     render_template("hello.html")
