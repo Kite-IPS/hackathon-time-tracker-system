@@ -44,7 +44,8 @@ class Student(db.Model):
         entries = entries.union(manual_entries).order_by(Entry.timestamp).all()        
 
         # adding current time as last entry to make calculation easy
-        entries = list((entry.timestamp for entry in entries))
+        tz = Config.get_timezone()
+        entries = list((tz.localize(entry.timestamp.localize) for entry in entries))
         entries.append(datetime.now(Config.get_timezone()))
         time_blocks = []
 
