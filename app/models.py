@@ -3,6 +3,8 @@ from .config import Config
 from datetime import datetime, timedelta
 
 total_time = 30 # Per person 30 hrs
+tz = Config.get_timezone()
+cutoff_time = tz.localize(datetime(year=2025, month=2, day=22, hour=16, minute=30))
 
 class Team(db.Model):
 
@@ -46,7 +48,7 @@ class Student(db.Model):
         # adding current time as last entry to make calculation easy
         tz = Config.get_timezone()
         entries = list((tz.localize(entry.timestamp) for entry in entries))
-        entries.append(datetime.now(Config.get_timezone()))
+        entries.append(min(datetime.now(Config.get_timezone()), cutoff_time))
         time_blocks = []
 
         for i in range(len(entries)-1):
